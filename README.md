@@ -26,6 +26,10 @@ Coming Soon:
 * Automated unit and integration testing
 * Mock REST-based backend API
 
+## Team Members
+
+Natalie - @natafaye
+
 ## Style Guide
 
 This project uses the Airbnb style guide with ESLint.
