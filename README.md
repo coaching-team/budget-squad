@@ -28,7 +28,7 @@ Coming Soon:
 
 ## Team Members
 
-Natalie - @natafaye
+Natalie C - @natafaye
 
 ## Style Guide
 
