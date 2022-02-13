@@ -43,42 +43,42 @@ https://github.com/airbnb/javascript
 
 ## Other Guidelines
 
-The project is developed using Jira and Agile development methodologies.
+The project is developed using Jira and Agile development methodologies.  
 https://www.atlassian.com/agile
 
 All components should be functional components.
 
-JSDoc comments should be used to document components and prop types.
+JSDoc comments should be used to document components and prop types.  
 https://www.inkoop.io/blog/a-guide-to-js-docs-for-react-js/
 
 ## Git Workflow
 
-This repository is contributed to through Pull Requests with either the Shared Repository or Fork and Pull model.
+This repository is contributed to through Pull Requests with either the Shared Repository or Fork and Pull model.  
 https://github.blog/2015-01-21-how-to-write-the-perfect-pull-request/
 
 ## Libraries Used
 
-React
+React  
 https://reactjs.org/
 
-React Router v6
+React Router v6  
 https://reactrouter.com/docs/en/v6
 
-Redux with Redux Toolkit
+Redux with Redux Toolkit  
 https://redux.js.org/
 https://redux-toolkit.js.org/
 
-React Bootstrap
+React Bootstrap  
 https://react-bootstrap.github.io/
 
-Prop Types
+Prop Types  
 https://www.npmjs.com/package/prop-types
 
-Bootswatch Zephyr Theme
+Bootswatch Zephyr Theme  
 https://bootswatch.com/zephyr/
 
-UUID
+UUID  
 https://www.npmjs.com/package/uuid
 
-Test data generated with Mockaroo
+Test data generated with Mockaroo  
 https://www.mockaroo.com/
