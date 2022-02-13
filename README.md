@@ -2,6 +2,11 @@
 
 A budgeting app with categories and monthly targets.
 
+To install all the dependencies when you first clone it:
+```
+npm install
+```
+
 To run a development version:
 ```
 npm start
