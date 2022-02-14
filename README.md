@@ -34,6 +34,7 @@ Coming Soon:
 ## Team Members
 
 Natalie C - @natafaye
+Stephanie A - @asteohanie
 
 ## Style Guide
 
