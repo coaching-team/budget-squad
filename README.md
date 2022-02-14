@@ -3,44 +3,50 @@
 A budgeting app with categories and monthly targets.
 
 To install all the dependencies when you first clone it:
+
 ```
 npm install
 ```
 
 To run a development version:
+
 ```
 npm start
 ```
 
 To run a production version:
+
 ```
 npm run build
 ```
 
 ## Built Using
 
-* Agile development methods with Jira
-* Git/Github branch based workflow
-* ESLint configured to AirBNB’s Javascript style guide
-* Documentation using JSDoc comments
-* Bug tracking with Jira
-* Redux state management
-* Responsive CSS with Bootstrap
+- Agile development methods with Jira
+- Git/Github branch based workflow
+- ESLint configured to AirBNB’s Javascript style guide
+- Documentation using JSDoc comments
+- Bug tracking with Jira
+- Redux state management
+- Responsive CSS with Bootstrap
 
 Coming Soon:
-* Automated unit and integration testing
-* Mock REST-based backend API
+
+- Automated unit and integration testing
+- Mock REST-based backend API
 
 ## Team Members
 
-Natalie C - @natafaye
-Stephanie A - @asteohanie
+- Natalie C - @natafaye
+- Stephanie A - @asteohanie
+- Jennifer L - @jmslynn
 
 ## Style Guide
 
 This project uses the Airbnb style guide with ESLint.
 
 To lint the project run:
+
 ```
 npm run lint
 ```
