@@ -65,6 +65,9 @@ https://www.inkoop.io/blog/a-guide-to-js-docs-for-react-js/
 This repository is contributed to through Pull Requests with either the Shared Repository or Fork and Pull model.  
 https://github.blog/2015-01-21-how-to-write-the-perfect-pull-request/
 
+Feature branches should be named starting with the Jira Issue Key and then ~1-10 words describing the feature  
+For example: BUD-5-transaction-form-validation
+
 ## Libraries Used
 
 React  
