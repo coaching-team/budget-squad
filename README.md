@@ -43,6 +43,7 @@ Coming Soon:
 - Vanessa A - @vanessaAlarcia
 - Celine - @minac23
 - Marc K - @marckrivitzky
+- Maureen - @antiluddite
 
 ## Style Guide
 
