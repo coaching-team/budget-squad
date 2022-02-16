@@ -42,6 +42,7 @@ Coming Soon:
 - Jennifer L - @jmslynn
 - Vanessa A - @vanessaAlarcia
 - Celine - @minac23
+- Marc K - @marckrivitzky
 
 ## Style Guide
 
