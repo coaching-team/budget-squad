@@ -31,7 +31,7 @@ function TransactionRow({ transaction }) {
   };
 
   // Format the date in this format: M-D-YYYY
-  const dateString = `${transaction.date.getMonth()}-${transaction.date.getDate()}-${transaction.date.getFullYear()}`;
+  const dateString = `${transaction.date.getMonth()+1}-${transaction.date.getDate()}-${transaction.date.getFullYear()}`;
 
   // Format the amount in this format: -$MMM,MMM.MM
   const formattedAmount = Number(Math.abs(transaction.amount))
