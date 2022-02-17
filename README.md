@@ -40,7 +40,7 @@ Coming Soon:
 - Natalie C - @natafaye
 - Stephanie A - @asteohanie
 - Jennifer L - @jmslynn
-- Vanessa A - @vanessaAlarcia
+- Vanessa Alarcia - @vanessaAlarcia
 
 ## Style Guide
 
