@@ -42,8 +42,6 @@ function TransactionForm({ onStopCreating }) {
       categoryId: parseInt(formData.categoryId, 10),
       amount: parseInt(formData.amount, 10),
     };
-    // eslint-disable-next-line no-console
-    console.log(formData.date);
     dispatch(addTransaction(transaction));
     onStopCreating();
   };
