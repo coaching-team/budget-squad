@@ -3,6 +3,8 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import HomePage from './home';
 import TransactionPage from './transactions';
+import TestPage from './budget/TestPage';
+
 import BudgetPage, { CategoryDetailsPage } from './budget';
 import NotFoundPage from './other';
 
@@ -31,6 +33,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="transactions" element={<TransactionPage />} />
           <Route path="budget" element={<BudgetPage />} />
+          {/* REMOVE THIS! */}
+          <Route path="test" element={<TestPage />} />
+          {/* REMOVE THIS! */}
           <Route path="budget/:categoryId" element={<CategoryDetailsPage />} />
           <Route path="notfound" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
