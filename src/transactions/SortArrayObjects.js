@@ -61,6 +61,8 @@ function SortByData() {
         <option value="Date">Date</option>
         <option value="Payee">Payee</option>
         <option value="CategoryId">Category Id</option>
+        <option value="Notes">Notes</option>
+        <option value="Amount">Amount</option>
       </select>
 
       {data.map((transaction) => (
@@ -79,3 +81,14 @@ function SortByData() {
 export default SortByData;
 
 // https://github.com/KaterinaLupacheva/react-sorting-with-dropdown/blob/master/src/App.js
+
+// function transactionFilter({ props }) {
+//   // print categoryId
+//   // console.log(props.categoryId);
+//   return (
+//     <div>
+//       Hello
+//       {props}
+//     </div>
+//   );
+// }
