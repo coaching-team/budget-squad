@@ -26,7 +26,7 @@ const bands = [
   },
 ];
 
-function App() {
+function SortArray2() {
   const [data, setData] = useState([]);
   const [sortType, setSortType] = useState('albums');
 
@@ -65,7 +65,7 @@ function App() {
   );
 }
 
-export default App;
+export default SortArray2;
 
 // https://dev.to/ramonak/react-how-to-dynamically-sort-an-array-of-objects-using-the-dropdown-with-react-hooks-195p
 

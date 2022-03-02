@@ -13,13 +13,10 @@ import TransactionForm from './TransactionForm';
  * <TransactionTable isCreating onStopCreating={() => alert('finished')} />
  */
 function TransactionTable({ isCreating = false, onStopCreating }) {
-  // add a prop here for filters
   // Get all the transactions to show in the table
   const transactionList = useSelector((state) => state.transactions.entities);
-  // const transactionFilter = useSelector((props) =>  props.transactions.entities);
-  //   const { startDate, endDate, categoryId, payee
-  //   } = props;
-  // };
+  // add a prop here for filters
+
   // JSX
   return (
     <table className="table table-striped">
@@ -42,8 +39,6 @@ function TransactionTable({ isCreating = false, onStopCreating }) {
     </table>
   );
 }
-// eslint-disable-next-line no-console
-// console.log(transactionFilter());
 
 TransactionTable.propTypes = {
   /**
