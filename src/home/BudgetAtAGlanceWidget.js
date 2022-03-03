@@ -1,13 +1,8 @@
 import React from 'react';
+import { ProgressBar } from 'react-bootstrap';
 
-const currentSpending = 10;
+const amountSpent = 10;
 const totalBudget = 100;
-
-function ProgressBar() {
-  return (
-    <div>Test</div>
-  );
-}
 
 function SpentTracker() {
   return (
@@ -15,19 +10,29 @@ function SpentTracker() {
   );
 }
 
-function BudgetAtAGlance() {
+function BudgetProgressBar() {
   return (
     <div>
-      <h3>Budget at a Glance</h3>
-      <p>
+      <ProgressBar variant="success" now={amountSpent} max={totalBudget} />
+    </div>
+  );
+}
+
+function BudgetAtAGlance() {
+  return (
+    <div className="card border-secondary mb-3">
+      <h4 className="card-header">Budget at a Glance</h4>
+      <p className="m-3">
         $
-        {currentSpending}
+        {amountSpent}
         &nbsp; of $
         {totalBudget}
         &nbsp;spent
+        <div className="my-3">
+          <BudgetProgressBar />
+        </div>
+        <SpentTracker />
       </p>
-      <ProgressBar />
-      <SpentTracker />
     </div>
   );
 }
