@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-const amountSpent = 3200;
+const amountSpent = 734;
 const totalBudget = 3500;
 const spentBudgetRatio = (amountSpent - totalBudget) / totalBudget;
 
@@ -21,7 +21,7 @@ function SpentTracker(ratio) {
     message = (
       <div>
         You&apos;re currently
-        <b className="text-warning">&nbsp;Under</b>
+        <b className="text-success">&nbsp;Under</b>
         &nbsp;your budget
       </div>
     );
@@ -38,10 +38,16 @@ function SpentTracker(ratio) {
 }
 
 function BudgetProgressBar() {
+  let barColor;
+  if (spentBudgetRatio > 0.10) {
+    barColor = 'danger';
+  } else {
+    barColor = 'success';
+  }
   return (
     <>
       <div>
-        <ProgressBar variant="success" now={amountSpent} max={totalBudget} />
+        <ProgressBar variant={barColor} now={amountSpent} max={totalBudget} />
       </div>
       <div className="my-3">
         {SpentTracker(spentBudgetRatio)}
