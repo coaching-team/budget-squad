@@ -1,20 +1,52 @@
 import React from 'react';
 import { ProgressBar } from 'react-bootstrap';
 
-const amountSpent = 10;
-const totalBudget = 100;
+const amountSpent = 3200;
+const totalBudget = 3500;
+const spentBudgetRatio = (amountSpent - totalBudget) / totalBudget;
 
-function SpentTracker() {
-  return (
-    <div>You&apos;re On Track to stay on budget</div>
-  );
+function SpentTracker(ratio) {
+  let message;
+  if (ratio > 0.10) {
+    message = (
+      <div>
+        You&apos;re currently
+        <b className="text-danger">
+          &nbsp;Over
+        </b>
+        &nbsp;your budget
+      </div>
+    );
+  } else if (ratio < -0.10) {
+    message = (
+      <div>
+        You&apos;re currently
+        <b className="text-warning">&nbsp;Under</b>
+        &nbsp;your budget
+      </div>
+    );
+  } else {
+    message = (
+      <div>
+        You&apos;re
+        <b className="text-success">&nbsp;On Track</b>
+        &nbsp;to stay on budget
+      </div>
+    );
+  }
+  return message;
 }
 
 function BudgetProgressBar() {
   return (
-    <div>
-      <ProgressBar variant="success" now={amountSpent} max={totalBudget} />
-    </div>
+    <>
+      <div>
+        <ProgressBar variant="success" now={amountSpent} max={totalBudget} />
+      </div>
+      <div className="my-3">
+        {SpentTracker(spentBudgetRatio)}
+      </div>
+    </>
   );
 }
 
@@ -31,7 +63,6 @@ function BudgetAtAGlance() {
         <div className="my-3">
           <BudgetProgressBar />
         </div>
-        <SpentTracker />
       </p>
     </div>
   );
