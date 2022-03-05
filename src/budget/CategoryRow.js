@@ -1,5 +1,6 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
+import { useSelector } from 'react-redux';
 
 /**
  * Shows the category title, a progress bar, how much was spent out of the limit
@@ -12,8 +13,27 @@ import { PropTypes } from 'prop-types';
  * PUT AN EXAMPLE HERE
  */
 function CategoryRow({ category }) {
+// check out memoization
+  const numberOfTransactions = useSelector((state) => {
+    const filteredTransactions = state.transactions.entities.filter(
+      (transaction) => transaction.categoryId === category.id,
+    );
+    return filteredTransactions.length;
+  });
+
+  // filter by
   return (
-    <li className="list-group-item">{category.name}</li>
+    <div className="container">
+      <div className="row">
+        <div className="col">
+          {category.name}
+          &nbsp; with &nbsp;
+          {numberOfTransactions}
+        </div>
+        <div className="col">button</div>
+      </div>
+      <div className="row">progress bar</div>
+    </div>
   );
 }
 

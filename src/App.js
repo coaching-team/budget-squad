@@ -3,7 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import HomePage from './home';
 import TransactionPage from './transactions';
-import TestPage from './budget/TestPage';
+import TestPage from './TestPage';
 
 import BudgetPage, { CategoryDetailsPage } from './budget';
 import NotFoundPage from './other';
@@ -25,6 +25,9 @@ function App() {
             <Nav.Link as={NavLink} to="/">Home</Nav.Link>
             <Nav.Link as={NavLink} to="/transactions">Transactions</Nav.Link>
             <Nav.Link as={NavLink} to="/budget">Budget</Nav.Link>
+            {/* REMOVE THIS! */}
+            <Nav.Link as={NavLink} to="/test">Test Page</Nav.Link>
+            {/* REMOVE THIS! */}
           </Nav>
         </Container>
       </Navbar>

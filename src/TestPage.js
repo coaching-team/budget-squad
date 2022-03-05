@@ -1,7 +1,10 @@
 import React from 'react';
-import CategoryRow from './CategoryRow';
+import { useDispatch } from 'react-redux';
+import CategoryRow from './budget/CategoryRow';
+import { addTransaction } from './transactions/TransactionSlice';
 
 export default function TestPage() {
+  const dispatch = useDispatch();
   const cat1 = {
     id: 1,
     name: 'Rent',
@@ -20,11 +23,21 @@ export default function TestPage() {
   // const cat1Actual = 1500;
   // const cat2Actual = 375.92;
   // const cat3Actual = 175.22;
+
+  const addACategory1Transaction = () => {
+    const transaction = {
+      categoryId: 1,
+    };
+    dispatch(addTransaction(transaction));
+  };
   return (
-    <ul className="list-group">
+    <div>
+      Testing
+      <button type="button" onClick={addACategory1Transaction}>Add a category 1 transaction</button>
+      <p> </p>
       <CategoryRow category={cat1} />
       <CategoryRow category={cat2} />
       <CategoryRow category={cat3} />
-    </ul>
+    </div>
   );
 }
