@@ -32,7 +32,9 @@ function CategoryRow({ category }) {
         </div>
         <div className="col">button</div>
       </div>
-      <div className="row">progress bar</div>
+      <div className="row progress">
+        <div className="progress-bar w-75" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" />
+      </div>
     </div>
   );
 }
