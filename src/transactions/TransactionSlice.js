@@ -14,7 +14,7 @@ const transactionSlice = createSlice({
       state.entities.push(transaction);
     },
     deleteTransaction: (state, action) => {
-      const indexToRemove = state.list.findIndex((t) => t.id === action.payload);
+      const indexToRemove = state.entities.findIndex((t) => t.id === action.payload);
       state.entities.splice(indexToRemove, 1);
     },
   },
