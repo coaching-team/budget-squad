@@ -16,7 +16,8 @@ function TransactionTable({ isCreating = false, onStopCreating }) {
   // Get all the transactions to show in the table
   const transactionList = useSelector((state) => state.transactions.entities);
   // add a prop here for filters
-
+  // const transactionFilters = entities.filter
+  // (entity => entity.categoryId === entities.categoryId || entity.payee === entities.payee)
   // JSX
   return (
     <table className="table table-striped">
