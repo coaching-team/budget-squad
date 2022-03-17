@@ -30,6 +30,11 @@ export default function TestPage() {
     };
     dispatch(addTransaction(transaction));
   };
+
+  // const calculatePercentSpent = () => {
+  //   const percentSpent = 15;
+  // };
+
   return (
     <div>
       Testing
