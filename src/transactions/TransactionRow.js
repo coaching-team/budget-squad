@@ -62,7 +62,7 @@ TransactionRow.propTypes = {
     id: PropTypes.string.isRequired,
     date: PropTypes.instanceOf(Date),
     payee: PropTypes.string.isRequired,
-    categoryId: PropTypes.number.isRequired,
+    categoryId: PropTypes.string.isRequired,
     notes: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
   }).isRequired,
