@@ -3,7 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import HomePage from './home';
 import TransactionPage from './transactions';
-import BudgetPage, { CategoryDetailsPage } from './budget';
+import BudgetPage, { CategoryDetailsPage, NewCategoryPage } from './budget';
 import NotFoundPage from './other';
 
 /**
@@ -32,6 +32,7 @@ function App() {
           <Route path="transactions" element={<TransactionPage />} />
           <Route path="budget" element={<BudgetPage />} />
           <Route path="budget/:categoryId" element={<CategoryDetailsPage />} />
+          <Route path="budget/new" element={<NewCategoryPage />} />
           <Route path="notfound" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
