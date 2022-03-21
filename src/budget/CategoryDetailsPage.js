@@ -15,8 +15,7 @@ export default function CategoryDetailsPage() {
   const navigate = useNavigate();
 
   // Get the category id from the URL and get the category for that id from the Redux store
-  let { categoryId } = useParams();
-  categoryId = parseInt(categoryId, 10);
+  const { categoryId } = useParams();
   const category = useSelector(categoryByIdSelector(categoryId));
 
   // After the inital render, if there isn't a category for the id in the URL, go to the 404 page

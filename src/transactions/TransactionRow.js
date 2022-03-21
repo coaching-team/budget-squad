@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteTransaction } from './TransactionSlice';
 import { categoryByIdSelector } from '../budget/CategorySlice';
+import { formatDate, formatMoney } from '../utilities';
 
 /**
  * Shows a table row for a transaction, with buttons to Edit or Delete
@@ -30,22 +31,14 @@ function TransactionRow({ transaction }) {
     dispatch(deleteTransaction(transaction.id));
   };
 
-  // Format the date in this format: M-D-YYYY
-  const dateString = `${transaction.date.getMonth()}-${transaction.date.getDate()}-${transaction.date.getFullYear()}`;
-
-  // Format the amount in this format: -$MMM,MMM.MM
-  const formattedAmount = Number(Math.abs(transaction.amount))
-    .toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  const amountString = (transaction.amount < 0) ? `-$${formattedAmount}` : `$${formattedAmount}`;
-
   // JSX
   return (
     <tr>
-      <td>{dateString}</td>
+      <td>{formatDate(transaction.date)}</td>
       <td>{transaction.payee}</td>
       <td>{category.name}</td>
       <td>{transaction.notes}</td>
-      <td>{amountString}</td>
+      <td>{formatMoney(transaction.amount)}</td>
       <td className="text-end">
         <button type="button" className="btn btn-sm btn-secondary me-2">Edit</button>
         <button type="button" className="btn btn-sm btn-warning" onClick={onDeleteClicked}>Delete</button>
@@ -62,7 +55,7 @@ TransactionRow.propTypes = {
     id: PropTypes.string.isRequired,
     date: PropTypes.instanceOf(Date),
     payee: PropTypes.string.isRequired,
-    categoryId: PropTypes.number.isRequired,
+    categoryId: PropTypes.string.isRequired,
     notes: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,
   }).isRequired,
