@@ -3,8 +3,7 @@ import { Route, Routes, NavLink } from 'react-router-dom';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import HomePage from './home';
 import TransactionPage from './transactions';
-import BudgetPage, { CategoryDetailsPage } from './budget';
-import NewCategoryPage from './budget/NewCategoryPage';
+import BudgetPage, { CategoryDetailsPage, NewCategoryPage } from './budget';
 import NotFoundPage from './other';
 
 /**

@@ -37,7 +37,7 @@ export default function NewCategoryPage() {
     <>
       <div className="row">
         <div className="col">
-          <h1 className="new-category-title">New Category</h1>
+          <h1 className="mt-5 mb-4">New Category</h1>
         </div>
       </div>
       <div className="row">
