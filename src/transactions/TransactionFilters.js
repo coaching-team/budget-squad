@@ -1,28 +1,23 @@
 import React from 'react';
+import { PropTypes } from 'prop-types';
 import CategoryFilter from './CategoryFilter';
 
-
-function TransactionFilters(props) {
-  
-
-  const handleFilter = (event) => {
-    props.setFilter(event.target.value);
-
+function TransactionFilters({ setFilter }) {
+  const handleFilter = (newFilterData) => {
+    setFilter(newFilterData);
   };
 
-  const clearFilter = () => {
-    props.setFilter("No Filters Applied");
-  };
-
-    return (
-      <div>
-        <CategoryFilter
-          //filter={props.filter} unnecessary, not being used
-          handleFilter={handleFilter}
-          clearFilter={clearFilter}
-        />
-      </div>
-    );
+  return (
+    <div>
+      <CategoryFilter
+        handleFilter={handleFilter}
+      />
+    </div>
+  );
 }
+
+TransactionFilters.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};
 
 export default TransactionFilters;
