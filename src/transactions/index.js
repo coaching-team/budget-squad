@@ -17,6 +17,8 @@ export default function TransactionPage() {
   const handleStopCreating = () => {
     setisCreating(false);
   };
+//   const filters = { categoryId: 0, payee: "Ullrich Group" };
+
 
   // JSX
   return (
@@ -36,7 +38,7 @@ export default function TransactionPage() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          <TransactionTable isCreating={isCreating} onStopCreating={handleStopCreating} />
+          <TransactionTable filters={filters} isCreating={isCreating} onStopCreating={handleStopCreating} />
         </div>
       </div>
     </>
