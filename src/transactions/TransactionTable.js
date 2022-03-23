@@ -12,13 +12,21 @@ import TransactionForm from './TransactionForm';
  * @example
  * <TransactionTable isCreating onStopCreating={() => alert('finished')} />
  */
-function TransactionTable({ isCreating = false, onStopCreating }) {
+
+//added filters
+function TransactionTable({ isCreating = false, onStopCreating, filters }) {
+
   // Get all the transactions to show in the table
-  const transactionList = useSelector((state) => state.transactions.entities);
+
+  //original code
+  // const transactionList = useSelector((state) => state.transactions.entities);
+
   // add a prop here for filters
-  // const transactionFilters = entities.filter
-  // (entity => entity.categoryId === entities.categoryId || entity.payee === entities.payee)
-  // JSX
+
+  //keeping useSelector and state.transaction.entities
+  const transactionList = useSelector((state) => state.entities.filter((t) => t.categoryId === filters.categoryId && t.payee === filters.payee))
+
+  // JS
   return (
     <table className="table table-striped">
       <thead>
