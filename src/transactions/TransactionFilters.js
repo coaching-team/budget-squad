@@ -2,9 +2,14 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import CategoryFilter from './CategoryFilter';
 
-function TransactionFilters({ setFilter }) {
+/**
+ * Houses filtering components for filtering transactions
+ *@component
+ *
+ */
+function TransactionFilters({ setFilters }) {
   const handleFilter = (newFilterData) => {
-    setFilter(newFilterData);
+    setFilters(newFilterData);
   };
 
   return (
@@ -17,7 +22,11 @@ function TransactionFilters({ setFilter }) {
 }
 
 TransactionFilters.propTypes = {
-  setFilter: PropTypes.func.isRequired,
+  /**
+   * A function passed from TransactionPage that changes the filters state
+   * of TransactionPage.
+   */
+  setFilters: PropTypes.func.isRequired,
 };
 
 export default TransactionFilters;
