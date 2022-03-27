@@ -22,6 +22,8 @@ function CategoryRow({ category }) {
   });
 
   // filter by
+  // try react bootstrap (progress bar) instead of /
+  // plain bootstrap to allow setting aria values, /// set the "now" and react will set the aria
   return (
     <div className="container">
       <div className="row">
@@ -29,6 +31,7 @@ function CategoryRow({ category }) {
           {category.name}
           &nbsp; with &nbsp;
           {numberOfTransactions}
+          &nbsp;transactions
         </div>
         <div className="col">button</div>
       </div>
