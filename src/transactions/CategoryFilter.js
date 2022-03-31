@@ -30,7 +30,7 @@ function CategoryFilter({ categoryId, handleFilter }) {
         <select className="form-select" value={selectedValue} name="categoryFilter" onChange={onSelectChanged}>
           <option value="">Filter by Category</option>
           {categoryList.map((category) => (
-            <option key={category.id} value={category.id} name={category.name}>
+            <option key={category.id} value={category.id}>
               {category.name}
             </option>
           ))}
@@ -49,6 +49,10 @@ CategoryFilter.propTypes = {
    * dropdown of category options to filter by.
    */
   handleFilter: PropTypes.func.isRequired,
+  /**
+   * A string of the category Id first passed to TransactionFilters and passed back down
+   * for use by CategoryFilter.
+   */
   categoryId: PropTypes.string.isRequired,
 };
 
