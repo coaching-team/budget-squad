@@ -39,7 +39,7 @@ function TransactionForm({ onStopCreating }) {
     const transaction = {
       ...formData,
       date: new Date(formData.date),
-      categoryId: parseInt(formData.categoryId, 10),
+      categoryId: formData.categoryId,
       amount: parseInt(formData.amount, 10),
     };
     dispatch(addTransaction(transaction));

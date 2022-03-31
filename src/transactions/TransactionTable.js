@@ -37,7 +37,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters }) {
         </tr>
       </thead>
       <tbody>
-        {(isCreating) ? <TransactionForm onStopCreating={onStopCreating} key={uuid()} /> : <tr />}
+        {(isCreating) ? <TransactionForm onStopCreating={onStopCreating} key={uuid()} /> : null}
         {transactionList.map(
           (transaction) => <TransactionRow transaction={transaction} key={transaction.id} />,
         )}
