@@ -14,7 +14,9 @@ export default function TransactionPage() {
   const handleStopCreating = () => {
     setisCreating(false);
   };
-//   const filters = { categoryId: 0, payee: "Ullrich Group" };
+
+  //
+  const filters = { categoryId: null, payee: null };
 
 
   // JSX

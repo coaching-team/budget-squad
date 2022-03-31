@@ -4,7 +4,6 @@ import { v4 as uuid } from 'uuid';
 import { useSelector } from 'react-redux';
 import TransactionRow from './TransactionRow';
 import TransactionForm from './TransactionForm';
-// import transactionFilter from './test';
 /**
  * Shows a table of transactions and optionally a form for creating a transaction
  *
@@ -21,9 +20,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters }) {
   //original code
   // const transactionList = useSelector((state) => state.transactions.entities);
 
-  // add a prop here for filters
-
-  //keeping useSelector and state.transaction.entities
+  //Still need to add date filtering and make sure it handles if categoryId/payee/startData/endDate is null or undefined)
   const transactionList = useSelector((state) => state.entities.filter((t) => t.categoryId === filters.categoryId && t.payee === filters.payee))
 
   // JS
