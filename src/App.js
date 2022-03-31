@@ -24,8 +24,6 @@ function App() {
             <Nav.Link as={NavLink} to="/">Home</Nav.Link>
             <Nav.Link as={NavLink} to="/transactions">Transactions</Nav.Link>
             <Nav.Link as={NavLink} to="/budget">Budget</Nav.Link>
-            {/* dont forget to remove this below */}
-            <Nav.Link as={NavLink} to="/test">Test</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
