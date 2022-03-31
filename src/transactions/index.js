@@ -24,6 +24,10 @@ export default function TransactionPage() {
       <div className="row mb-5 mt-4">
         <div className="col">
           <h3 className="mt-1">Transactions</h3>
+          <p>
+            categoryId:
+            {filters.categoryId}
+          </p>
         </div>
         <div className="col text-end">
           <button className="btn btn-info" type="button" onClick={() => setisCreating(true)}>New Transaction</button>
