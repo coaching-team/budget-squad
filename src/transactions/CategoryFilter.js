@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
 
@@ -8,25 +8,27 @@ import { useSelector } from 'react-redux';
  *
  * @component
  */
-function CategoryFilter({ handleFilter }) {
-  const [selected, setSelected] = useState({ selected: 'Filter by Category' });
+function CategoryFilter({ categoryId, handleFilter }) {
   const onSelectChanged = ({ target: { value } }) => {
     handleFilter({ categoryId: value });
-    setSelected({ selected: value });
   };
 
   const onClear = () => {
     handleFilter({ categoryId: null });
-    setSelected({ selected: 'Filter by Category' });
   };
+
+  let selectedValue = categoryId;
+  if (!categoryId) {
+    selectedValue = '';
+  }
 
   const categoryList = useSelector((state) => state.categories.entities);
 
   return (
     <div className="row">
       <div className="col col-3 mr-2">
-        <select className="form-select" value={selected.selected} name="categoryFilter" onChange={onSelectChanged}>
-          <option value="Filter by Category">Filter by Category</option>
+        <select className="form-select" value={selectedValue} name="categoryFilter" onChange={onSelectChanged}>
+          <option value="">Filter by Category</option>
           {categoryList.map((category) => (
             <option key={category.id} value={category.id} name={category.name}>
               {category.name}
@@ -47,6 +49,7 @@ CategoryFilter.propTypes = {
    * dropdown of category options to filter by.
    */
   handleFilter: PropTypes.func.isRequired,
+  categoryId: PropTypes.string.isRequired,
 };
 
 export default CategoryFilter;

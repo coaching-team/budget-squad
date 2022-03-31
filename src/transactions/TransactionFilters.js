@@ -7,7 +7,7 @@ import CategoryFilter from './CategoryFilter';
  *@component
  *
  */
-function TransactionFilters({ setFilters }) {
+function TransactionFilters({ filters, setFilters }) {
   const handleFilter = (newFilterData) => {
     setFilters(newFilterData);
   };
@@ -15,6 +15,7 @@ function TransactionFilters({ setFilters }) {
   return (
     <div>
       <CategoryFilter
+        categoryId={filters.categoryId}
         handleFilter={handleFilter}
       />
     </div>
@@ -27,6 +28,7 @@ TransactionFilters.propTypes = {
    * of TransactionPage.
    */
   setFilters: PropTypes.func.isRequired,
+  filters: PropTypes.string.isRequired,
 };
 
 export default TransactionFilters;
