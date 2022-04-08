@@ -12,7 +12,6 @@ function CategoryFilter({ categoryId, handleFilter }) {
   const onSelectChanged = ({ target: { value } }) => {
     handleFilter({ categoryId: value });
   };
-
   const onClear = () => {
     handleFilter({ categoryId: null });
   };
@@ -20,6 +19,10 @@ function CategoryFilter({ categoryId, handleFilter }) {
   let selectedValue = categoryId;
   if (!categoryId) {
     selectedValue = '';
+  }
+
+  if (categoryId === '') {
+    onClear();
   }
 
   const categoryList = useSelector((state) => state.categories.entities);
@@ -53,7 +56,11 @@ CategoryFilter.propTypes = {
    * A string of the category Id first passed to TransactionFilters and passed back down
    * for use by CategoryFilter.
    */
-  categoryId: PropTypes.string.isRequired,
+  categoryId: PropTypes.string,
+};
+
+CategoryFilter.defaultProps = {
+  categoryId: null,
 };
 
 export default CategoryFilter;
