@@ -28,7 +28,9 @@ TransactionFilters.propTypes = {
    * of TransactionPage.
    */
   setFilters: PropTypes.func.isRequired,
-  filters: PropTypes.string.isRequired,
+  filters: PropTypes.exact({
+    categoryId: PropTypes.string,
+  }).isRequired,
 };
 
 export default TransactionFilters;
