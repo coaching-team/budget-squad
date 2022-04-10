@@ -28,6 +28,10 @@ TransactionFilters.propTypes = {
    * of TransactionPage.
    */
   setFilters: PropTypes.func.isRequired,
+  /**
+   * An object containing the categoryId of the category to filter by
+   * selected by the user.
+   */
   filters: PropTypes.exact({
     categoryId: PropTypes.string,
   }).isRequired,

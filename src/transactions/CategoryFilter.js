@@ -9,20 +9,20 @@ import { useSelector } from 'react-redux';
  * @component
  */
 function CategoryFilter({ categoryId, handleFilter }) {
-  const onSelectChanged = ({ target: { value } }) => {
-    handleFilter({ categoryId: value });
-  };
   const onClear = () => {
     handleFilter({ categoryId: null });
+  };
+  const onSelectChanged = ({ target: { value } }) => {
+    if (value === '') {
+      onClear();
+    } else {
+      handleFilter({ categoryId: value });
+    }
   };
 
   let selectedValue = categoryId;
   if (!categoryId) {
     selectedValue = '';
-  }
-
-  if (categoryId === '') {
-    onClear();
   }
 
   const categoryList = useSelector((state) => state.categories.entities);
