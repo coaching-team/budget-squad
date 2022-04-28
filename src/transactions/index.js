@@ -19,7 +19,6 @@ export default function TransactionPage() {
   };
 
   //
-  const filters = { categoryId: null, payee: null };
 
 
   // JSX
