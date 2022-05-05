@@ -1,6 +1,8 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { useSelector } from 'react-redux';
+import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 /**
  * Shows the category title, a progress bar, how much was spent out of the limit
@@ -21,9 +23,15 @@ function CategoryRow({ category }) {
     return filteredTransactions.length;
   });
 
+  // The category
+  // const categoryId = {
+  //   id: '914d19bf-75b0-468c-801c-442a7e9e285b',
+  // };
+
+  // const amountSpent = useSelector((state) =>
+  // state.categories.entities.filter((category) => categoryId === )
+
   // filter by
-  // try react bootstrap (progress bar) instead of /
-  // plain bootstrap to allow setting aria values, /// set the "now" and react will set the aria
   return (
     <div className="container">
       <div className="row">
@@ -33,10 +41,11 @@ function CategoryRow({ category }) {
           {numberOfTransactions}
           &nbsp;transactions
         </div>
-        <div className="col">button</div>
+        <div className="col">$X out of $Y</div>
+        <div className="col"><Button variant="outline-dark">Details</Button></div>
       </div>
-      <div className="row progress">
-        <div className="progress-bar w-25" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" />
+      <div className="row">
+        <ProgressBar variant="danger" now={80} />
       </div>
     </div>
   );
