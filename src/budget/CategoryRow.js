@@ -14,38 +14,58 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
  *
  * PUT AN EXAMPLE HERE
  */
+
+// Need to do:
+// formatting:
+// * category title bigger
+// * put text closer to progress bar
+// * smaller details button
+// have progress of progress bar start at full left
+// send data in details link
+// ?what happens on the details page?
+// ?how should I be getting the period?
+// edge cases: actual negative balance, over budget
+
 function CategoryRow({ category }) {
-// check out memoization
-  const numberOfTransactions = useSelector((state) => {
-    const filteredTransactions = state.transactions.entities.filter(
-      (transaction) => transaction.categoryId === category.id,
-    );
-    return filteredTransactions.length;
-  });
+  const startDate = new Date('06-01-2021');
+  const endDate = new Date('06-30-2021');
+  // check out memoization
+  const amountSpent = useSelector((state) => state.transactions.entities.filter(
+    (transaction) => transaction.categoryId === category.id
+      && transaction.date >= startDate && transaction.date <= endDate,
+  ).reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0).toFixed(2)) * -1;
 
-  // The category
-  // const categoryId = {
-  //   id: '914d19bf-75b0-468c-801c-442a7e9e285b',
-  // };
+  const varianceToPercentage = (amountSpent / category.target) * 100;
+  console.log(varianceToPercentage);
 
-  // const amountSpent = useSelector((state) =>
-  // state.categories.entities.filter((category) => categoryId === )
+  let barColor = 0;
 
-  // filter by
+  if (varianceToPercentage <= 50) {
+    barColor = 'success';
+  } else if (varianceToPercentage > 50 && varianceToPercentage <= 75) {
+    barColor = 'warning';
+  } else if (varianceToPercentage > 75) {
+    barColor = 'danger';
+  }
+  console.log(barColor);
+
   return (
     <div className="container">
       <div className="row">
         <div className="col">
           {category.name}
-          &nbsp; with &nbsp;
-          {numberOfTransactions}
-          &nbsp;transactions
         </div>
-        <div className="col">$X out of $Y</div>
+        <div className="col">
+          &#36;
+          {amountSpent}
+          &nbsp;out of
+          &#36;
+          {category.target}
+        </div>
         <div className="col"><Button variant="outline-dark">Details</Button></div>
       </div>
       <div className="row">
-        <ProgressBar variant="danger" now={80} />
+        <ProgressBar variant={barColor} now={varianceToPercentage} />
       </div>
     </div>
   );
