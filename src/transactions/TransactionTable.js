@@ -4,10 +4,8 @@ import { v4 as uuid } from 'uuid';
 import { useSelector } from 'react-redux';
 import TransactionRow from './TransactionRow';
 import TransactionForm from './TransactionForm';
-
 /**
  * Shows a table of transactions, a way to filter by types in the transaction, and optionally a form for creating a transaction
-
  * @component
  * @example
  * const filters = {
