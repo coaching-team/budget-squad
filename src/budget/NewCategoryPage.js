@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { addNewCategory } from './CategorySlice';
 import {
   validate, required, certainCharactersOnly, max50Characters, restrictedRange, isNumber,
-} from './FormValidation';
+} from '../utilities/FormValidation';
 
 /**
  * Shows a form that allows the user to create a new budgeting category
