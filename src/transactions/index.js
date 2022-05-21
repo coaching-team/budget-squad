@@ -18,9 +18,6 @@ export default function TransactionPage() {
     setisCreating(false);
   };
 
-  //
-
-
   // JSX
   return (
     <>
@@ -39,7 +36,11 @@ export default function TransactionPage() {
       </div>
       <div className="row mt-3">
         <div className="col">
-          <TransactionTable filters={filters} isCreating={isCreating} onStopCreating={handleStopCreating} />
+          <TransactionTable
+            filters={filters}
+            isCreating={isCreating}
+            onStopCreating={handleStopCreating}
+          />
         </div>
       </div>
     </>
