@@ -5,29 +5,27 @@ import { useSelector } from 'react-redux';
 import TransactionRow from './TransactionRow';
 import TransactionForm from './TransactionForm';
 /**
- * Shows a table of transactions, a way to filter by types in the transaction, and optionally a form for creating a transaction
+ * Shows a table of transactions, a way to filter by types in the transaction, and
+ * optionally a form for creating a transaction
  * @component
  * @example
  * const filters = {
-    categoryId: 0,
-    payee: "Ullrich Group",
-    startDate: new Date("07-01-2021"),
-    endDate: new Date("09-30-2021")
-  };
--or-
-  const filters = {
-    categoryId: null,
-    payee: undefined,
-    startDate: "",
-    endDate: ""
-  };
-
- * <TransactionTable isCreating onStopCreating={() => alert('finished')} />
+ *   categoryId: 0,
+ *   payee: "Ullrich Group",
+ *   startDate: new Date("07-01-2021"),
+ *   endDate: new Date("09-30-2021")
+ * };
+ * -or-
+ * const filters = {
+ *   categoryId: null,
+ *   payee: undefined,
+ * };
+ * <TransactionTable
+ *    isCreating
+ *    onStopCreating={() => alert('finished')}
+ *    filters={filters}/>
  */
-
-// added filters
-function TransactionTable({ isCreating = false, onStopCreating, filters }) {
-  // "filters" prop added.
+function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) {
   const transactionList = useSelector((state) => state.transactions.entities.filter(
     (t) => (t.categoryId === filters.categoryId
     || filters.categoryId === null
@@ -64,17 +62,19 @@ function TransactionTable({ isCreating = false, onStopCreating, filters }) {
     </table>
   );
 }
-/*Added props to the TransactionTable component that allows filtering by:
-start date (inclusive),end date (inclusive), category, payee. Can include variation of null, undefined, and "".
-*/
+
 TransactionTable.propTypes = {
+  /**
+   * Props to filter transactions. Allows filtering by:
+   * start date (inclusive),end date (inclusive), category, payee. Can include
+   * variation of null, and undefined; to not filter by that property
+   */
   filters: PropTypes.exact({
     categoryId: PropTypes.string,
     payee: PropTypes.string,
-    startDate: PropTypes.number,
-    endDate: PropTypes.number,
-  }).isRequired,
-  // date: new Date(formData.date)
+    startDate: PropTypes.instanceOf(Date),
+    endDate: PropTypes.instanceOf(Date),
+  }),
   /**
    * Is a transaction currently being created - shows the creating form
    */
@@ -87,6 +87,7 @@ TransactionTable.propTypes = {
 
 TransactionTable.defaultProps = {
   isCreating: false,
+  filters: {},
 };
 
 export default TransactionTable;

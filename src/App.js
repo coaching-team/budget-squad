@@ -5,7 +5,6 @@ import HomePage from './home';
 import TransactionPage from './transactions';
 import BudgetPage, { CategoryDetailsPage, NewCategoryPage } from './budget';
 import NotFoundPage from './other';
-import TestPage from './TestPage';
 
 /**
  * Top-level component that displays the Navbar and uses React Router to show pages based on the URL
@@ -35,8 +34,6 @@ function App() {
           <Route path="budget/:categoryId" element={<CategoryDetailsPage />} />
           <Route path="budget/new" element={<NewCategoryPage />} />
           <Route path="notfound" element={<NotFoundPage />} />
-          {/* remove before deploying */}
-          <Route path="test" element={<TestPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </div>
