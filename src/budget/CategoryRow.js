@@ -21,10 +21,13 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 // * put text closer to progress bar
 // * smaller details button
 // have progress of progress bar start at full left
+//   (?import 'bootstrap/dist/css/bootstrap.min.css';?)
 // send data in details link
 // ?what happens on the details page?
-// ?how should I be getting the period?
-// edge cases: actual negative balance, over budget
+// ?how should I be getting the time period?
+// edge cases:
+// underspent (return): $0 out of $50 (crossed out) $90 with empty bar
+// overspent: $120 out of $100 with full bar
 
 function CategoryRow({ category }) {
   const startDate = new Date('06-01-2021');
@@ -39,33 +42,38 @@ function CategoryRow({ category }) {
   console.log(varianceToPercentage);
 
   let barColor = 0;
+  let message = '';
 
-  if (varianceToPercentage <= 50) {
+  if (varianceToPercentage < 0) {
+    message = '$0 spent out of', <strike>category.target</strike>, (category.target + amountSpent);
+  } else if (varianceToPercentage <= 50 && varianceToPercentage >= 0) {
+    message = amountSpent, ' spent out of ', category.target;
     barColor = 'success';
   } else if (varianceToPercentage > 50 && varianceToPercentage <= 75) {
+    message = amountSpent, ' spent out of ', category.target;
     barColor = 'warning';
   } else if (varianceToPercentage > 75) {
+    message = amountSpent, ' spent out of ', category.target;
     barColor = 'danger';
+  } else if (varianceToPercentage > 100) {
+    message = amountSpent, ' spent out of ', category.target;
+    barColor = 'danger'; // add stripe
   }
   console.log(barColor);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col">
+    <div className="container border border-primary">
+      <div className="row border">
+        <div className="col px-2 border fw-bold">
           {category.name}
         </div>
-        <div className="col">
-          &#36;
-          {amountSpent}
-          &nbsp;out of
-          &#36;
-          {category.target}
+        <div className="col col-6 px-2 border text-muted fs-6">
+          {message}
         </div>
-        <div className="col"><Button variant="outline-dark">Details</Button></div>
+        <div className="col px-2 border"><Button variant="outline-dark" size="sm" className="float-end">Details</Button></div>
       </div>
-      <div className="row">
-        <ProgressBar variant={barColor} now={varianceToPercentage} />
+      <div className="row px-2">
+        <ProgressBar now={varianceToPercentage} variant={barColor} />
       </div>
     </div>
   );
