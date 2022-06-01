@@ -78,19 +78,21 @@ function CategoryRow({ category }) {
         <div className="col px-2 border"><Button variant="outline-dark" size="sm" className="float-end">Details</Button></div>
       </div>
       <div className="row px-2">
-        {varianceToPercentage > 100 ? (
-          <ProgressBar
-            striped
-            now={varianceToPercentage}
-            variant={barColor}
-          />
-        )
-          : (
+        <div className="col px-0">
+          {varianceToPercentage > 100 ? (
             <ProgressBar
+              striped
               now={varianceToPercentage}
               variant={barColor}
             />
-          )}
+          )
+            : (
+              <ProgressBar
+                now={varianceToPercentage}
+                variant={barColor}
+              />
+            )}
+        </div>
       </div>
     </div>
   );
