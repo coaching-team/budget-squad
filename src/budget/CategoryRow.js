@@ -17,9 +17,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Need to do:
 // formatting:
-// * category title bigger
 // * put text closer to progress bar
-// * smaller details button
 // have progress of progress bar start at full left
 //   (?import 'bootstrap/dist/css/bootstrap.min.css';?)
 // send data in details link
@@ -41,22 +39,29 @@ function CategoryRow({ category }) {
   const varianceToPercentage = (amountSpent / category.target) * 100;
   console.log(varianceToPercentage);
 
-  let barColor = 0;
+  let barColor = '';
   let message = '';
 
   if (varianceToPercentage < 0) {
-    message = '$0 spent out of', <strike>category.target</strike>, (category.target + amountSpent);
+    // message = '$0 spent out of',
+    // <strike>category.target</strike>,
+    // (category.target + amountSpent);
+    message = 'negative balance';
   } else if (varianceToPercentage <= 50 && varianceToPercentage >= 0) {
-    message = amountSpent, ' spent out of ', category.target;
+    // message = amountSpent, ' spent out of ', category.target;
+    message = 'below 50%';
     barColor = 'success';
   } else if (varianceToPercentage > 50 && varianceToPercentage <= 75) {
-    message = amountSpent, ' spent out of ', category.target;
+    // message = amountSpent, ' spent out of ', category.target;
+    message = 'below 75%';
     barColor = 'warning';
   } else if (varianceToPercentage > 75) {
-    message = amountSpent, ' spent out of ', category.target;
+    // message = amountSpent, ' spent out of ', category.target;
+    message = 'over 75%';
     barColor = 'danger';
   } else if (varianceToPercentage > 100) {
-    message = amountSpent, ' spent out of ', category.target;
+    // message = amountSpent, ' spent out of ', category.target;
+    message = 'overspent!';
     barColor = 'danger'; // add stripe
   }
   console.log(barColor);
@@ -73,7 +78,19 @@ function CategoryRow({ category }) {
         <div className="col px-2 border"><Button variant="outline-dark" size="sm" className="float-end">Details</Button></div>
       </div>
       <div className="row px-2">
-        <ProgressBar now={varianceToPercentage} variant={barColor} />
+        {varianceToPercentage > 100 ? (
+          <ProgressBar
+            striped
+            now={varianceToPercentage}
+            variant={barColor}
+          />
+        )
+          : (
+            <ProgressBar
+              now={varianceToPercentage}
+              variant={barColor}
+            />
+          )}
       </div>
     </div>
   );
