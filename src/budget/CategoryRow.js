@@ -16,10 +16,6 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
  */
 
 // Need to do:
-// formatting:
-// * put text closer to progress bar
-// have progress of progress bar start at full left
-//   (?import 'bootstrap/dist/css/bootstrap.min.css';?)
 // send data in details link
 // ?what happens on the details page?
 // ?how should I be getting the time period?
@@ -37,41 +33,60 @@ function CategoryRow({ category }) {
   ).reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0).toFixed(2)) * -1;
 
   const varianceToPercentage = (amountSpent / category.target) * 100;
-  console.log(varianceToPercentage);
 
   let barColor = '';
-  let message = '';
+  let message = (
+    <span>
+      $
+      {amountSpent.toFixed(2)}
+      &nbsp;spent out of&nbsp;
+      $
+      {category.target.toFixed(2)}
+    </span>
+  );
 
   if (varianceToPercentage < 0) {
-    // message = '$0 spent out of',
-    // <span className='text-decoration-line-through'>category.target</span>,
-    // (category.target + amountSpent);
-    message = 'negative balance';
+    message = (
+      <span>
+        $0 spent out of
+        <strike>
+          $
+          {category.target.toFixed(2)}
+        </strike>
+        $
+        (
+        {category.target.toFixed(2)}
+        +
+        {amountSpent.toFixed(2)}
+        )
+      </span>
+    );
   } else if (varianceToPercentage <= 50 && varianceToPercentage >= 0) {
-    // message = amountSpent, ' spent out of ', category.target;
-    message = 'below 50%';
     barColor = 'success';
   } else if (varianceToPercentage > 50 && varianceToPercentage <= 75) {
-    // message = amountSpent, ' spent out of ', category.target;
-    message = 'below 75%';
     barColor = 'warning';
   } else if (varianceToPercentage > 75) {
-    // message = amountSpent, ' spent out of ', category.target;
-    message = 'over 75%';
     barColor = 'danger';
   } else if (varianceToPercentage > 100) {
-    // message = amountSpent, ' spent out of ', category.target;
-    message = 'overspent!';
+    message = (
+      <span>
+        $
+        {amountSpent.toFixed(2)}
+        &nbsp;spent out of&nbsp;
+        $
+        {category.target.toFixed(2)}
+      </span>
+    );
     barColor = 'danger'; // add stripe
   }
 
   return (
     <div className="container mb-2 px-2 py-2 border border-info rounded">
       <div className="row px-2">
-        <div className="col col-4 px-2 fw-bold">
+        <div className="col col-3 px-2 fw-bold">
           {category.name}
         </div>
-        <div className="col col-6 px-2 pt-1 text-end text-muted fs-6">
+        <div className="col col-7 px-2 pt-1 text-end text-muted fs-6">
           {message}
         </div>
         <div className="col col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end">Details</Button></div>
