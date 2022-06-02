@@ -44,7 +44,7 @@ function CategoryRow({ category }) {
 
   if (varianceToPercentage < 0) {
     // message = '$0 spent out of',
-    // <strike>category.target</strike>,
+    // <span className='text-decoration-line-through'>category.target</span>,
     // (category.target + amountSpent);
     message = 'negative balance';
   } else if (varianceToPercentage <= 50 && varianceToPercentage >= 0) {
@@ -64,21 +64,20 @@ function CategoryRow({ category }) {
     message = 'overspent!';
     barColor = 'danger'; // add stripe
   }
-  console.log(barColor);
 
   return (
-    <div className="container border border-primary">
-      <div className="row border">
-        <div className="col px-2 border fw-bold">
+    <div className="container mb-2 px-2 py-2 border border-info rounded">
+      <div className="row px-2">
+        <div className="col col-4 px-2 fw-bold">
           {category.name}
         </div>
-        <div className="col col-6 px-2 border text-muted fs-6">
+        <div className="col col-6 px-2 pt-1 text-end text-muted fs-6">
           {message}
         </div>
-        <div className="col px-2 border"><Button variant="outline-dark" size="sm" className="float-end">Details</Button></div>
+        <div className="col col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end">Details</Button></div>
       </div>
-      <div className="row px-2">
-        <div className="col px-0">
+      <div className="row px-1 py-2">
+        <div className="col">
           {varianceToPercentage > 100 ? (
             <ProgressBar
               striped
