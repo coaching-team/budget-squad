@@ -17,8 +17,11 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 
 // Need to do:
 // send data in details link
-// ?what happens on the details page?
+//  ?what happens on the details page?
+//   <Route path="budget/:categoryId" element={<CategoryDetailsPage />} />
 // ?how should I be getting the time period?
+//   Hard code for now until there's a means to get the desired period.
+// test edge cases
 // edge cases:
 // underspent (return): $0 out of $50 (crossed out) $90 with empty bar
 // overspent: $120 out of $100 with full bar
@@ -89,7 +92,7 @@ function CategoryRow({ category }) {
         <div className="col col-7 px-2 pt-1 text-end text-muted fs-6">
           {message}
         </div>
-        <div className="col col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end">Details</Button></div>
+        <div className="col col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end" path="budget/:categoryId" category={category}>Details</Button></div>
       </div>
       <div className="row px-1 py-2">
         <div className="col">
