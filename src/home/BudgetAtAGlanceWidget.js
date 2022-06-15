@@ -3,32 +3,27 @@ import { useSelector } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
 
-// getData and passData to other components
+// get transaction data and budget across categories and pass to other components
 function BudgetAtAGlance() {
-  const date = new Date();
+  // const date = new Date();
 
-  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-  // const firstDay = new Date('2021-03-01');
-  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-  // const lastDay = new Date('2021-03-31');
+  // const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
-  const filteredTransactions = useSelector((state) => state.transactions.entities
-    .filter(
-      (transaction) => transaction.date >= firstDay && transaction.date <= lastDay,
-      /* eslint-disable no-console */
-      //  console.log('transaction: ', transaction);
-    ));
+  // This is used for testing purposes if no transactions for current month
+  const firstDay = new Date('2021-03-01');
+  // const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  // This is used for testing purposes if no transactions for current month
+  const lastDay = new Date('2021-03-31');
 
-  /* eslint-disable no-console */
-  // console.log(filteredTransactions);
+  const amountSpent = useSelector((state) => state.transactions.entities
+    .filter((transaction) => transaction.date >= firstDay && transaction.date <= lastDay)
+    .reduce((initialTransaction, t) => initialTransaction + Math.abs(t.amount), 0).toFixed(2));
 
-  const amountSpent = Math.abs(filteredTransactions
-    .reduce((initialTotal, currentTotal) => initialTotal + currentTotal.amount, 0));
   /* eslint-disable no-console */
   console.log(amountSpent);
 
   const totalBudget = useSelector((state) => state.categories.entities
-    .reduce((initialTarget, currentTarget) => initialTarget + currentTarget.target, 0));
+    .reduce((total, transaction) => total + transaction.target, 0));
   /* eslint-disable no-console */
   console.log(totalBudget);
 
@@ -56,50 +51,46 @@ function BudgetAtAGlance() {
 
 // Displays message based on how much was spent
 function SpentTracker({ ratio }) {
-  let message;
+  const fontStyling = (ratio > 0.10) ? 'text-danger' : 'text-success';
+
+  const endText = (ratio >= -0.10 && ratio <= 0.10) ? 'to stay within budget' : 'your budget';
+
+  let status = '';
+
   if (ratio > 0.10) {
-    message = (
-      <div>
-        You&apos;re currently
-        <b className="text-danger">
-          &nbsp;Over
-        </b>
-        &nbsp;your budget
-      </div>
-    );
+    status = 'Over';
   } else if (ratio < -0.10) {
-    message = (
-      <div>
-        You&apos;re currently
-        <b className="text-success">&nbsp;Under</b>
-        &nbsp;your budget
-      </div>
-    );
+    status = 'Under';
   } else {
-    message = (
-      <div>
-        You&apos;re
-        <b className="text-success">&nbsp;On Track</b>
-        &nbsp;to stay on budget
-      </div>
-    );
+    status = 'On Track';
   }
-  return message;
+
+  return (
+    <div>
+      You&apos;re currently
+      <strong className={fontStyling}>
+        &nbsp;
+        {status}
+        &nbsp;
+      </strong>
+      {endText}
+    </div>
+  );
 }
 
 function BudgetProgressBar({ amount, total, ratio }) {
-  let barColor;
-  if (ratio > 0.10) {
-    barColor = 'danger';
-  } else {
-    barColor = 'success';
-  }
+  const barColor = (ratio > 0.10) ? 'danger' : 'success';
+
   return (
     <div>
       <ProgressBar variant={barColor} now={amount} max={total} />
     </div>
   );
 }
+
+SpentTracker.propTypes = {
+  ratio: PropTypes.number.isRequired,
+};
 
 BudgetProgressBar.propTypes = {
   amount: PropTypes.number.isRequired,
