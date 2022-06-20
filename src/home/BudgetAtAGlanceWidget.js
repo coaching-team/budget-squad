@@ -12,7 +12,7 @@ import { PropTypes } from 'prop-types';
  */
 
 // Sum transaction data and sum target budget across all categories
-function BudgetAtAGlance({ testDate = '03-02-2022' }) {
+function BudgetAtAGlance({ testDate = new Date() }) {
   // UNCOMMENT WHEN READY TO COMMIT
   const date = (testDate);
 
@@ -124,9 +124,9 @@ function BudgetAtAGlance({ testDate = '03-02-2022' }) {
  * Displays amount spent over the total budget.
  * If credited transactions exceed total budget,
  * additional funds are displayed in addition to budgeted amount.
- * @param {number} amount sum of transactions (except income)
- * @param {number} total sum of category targets (except income)
- * @returns {string} spentDisplay amount spent over total budget
+ * Amount is sum of transactions. Total is sum of category targets.
+ *
+ * @component
  */
 
 function SpentTracker({ amount, total }) {
@@ -177,9 +177,10 @@ function SpentTracker({ amount, total }) {
 
 /**
  * Displays a status message if currently "Under", "On Track", or "Over" budget.
- * @param {number} amount sum of transactions
- * @param {number} ratio difference of sum of transactions and total budget over total budget
- * @returns {string} status message if "Under", "On Track", or "Over" budget depending on ratio
+ * Takes sum of transactions (amount) and ratio (percent difference of amount and budget).
+ * Determines if "Under", "On Track", or "Over" budget by 10 percent.
+ *
+ * @component
  */
 
 // Added amount < 0 to condition to ensure BudgetStatus tracking negative transactions
@@ -213,10 +214,8 @@ function BudgetStatus({ amount, ratio }) {
 
 /**
  * Displays a progress bar showing budget status.
- * @param {number} amount sum of transactions
- * @param {number} total sum of category targets
- * @param {number} ratio difference of sum of transactions and total budget over total budget
- * @returns progress bar
+ *
+ * @component
  */
 
 function BudgetProgressBar({ amount, total, ratio }) {
@@ -228,34 +227,46 @@ function BudgetProgressBar({ amount, total, ratio }) {
 }
 
 BudgetAtAGlance.propTypes = {
+  /**
+   * Date prop to analyze spending for current month
+   */
   testDate: PropTypes.instanceOf(Date).isRequired,
 };
 
 SpentTracker.propTypes = {
   /**
-   * Sum of transactions (amount) and sum of all category targets (total).
+   * Sum of transactions (except income)
    */
   amount: PropTypes.number.isRequired,
+  /**
+   * Sum of all category targets (except income)
+   */
   total: PropTypes.number.isRequired,
 };
 
 BudgetStatus.propTypes = {
   /**
-   * Sum of transactions (amount) and difference of amount spent (amount)
-   * and total budget (total) over total budget.
+   * Sum of transactions (except income)
    */
   amount: PropTypes.number.isRequired,
+  /**
+   * Difference of amount spent and total budget over togal budget
+   */
   ratio: PropTypes.number.isRequired,
 };
 
 BudgetProgressBar.propTypes = {
-/**
- * Sum of transactions (amount), sum of category targets (total),
- * and different of amount spent (amount) and total budget (total) over total budget [ratio].
- */
-
+  /**
+   * Sum of transactions (except income)
+   */
   amount: PropTypes.number.isRequired,
+  /**
+   * Sum of all category targets (except income)
+   */
   total: PropTypes.number.isRequired,
+  /**
+   * Difference of amount spent and total budget over togal budget
+   */
   ratio: PropTypes.number.isRequired,
 };
 
