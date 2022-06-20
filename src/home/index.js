@@ -12,7 +12,7 @@ export default function HomePage() {
   return (
     <div>
       HOME PAGE UNDER CONSTRUCTION
-      <BudgetAtAGlance />
+      <BudgetAtAGlance testDate={new Date('03-05-2022')} />
     </div>
   );
 }

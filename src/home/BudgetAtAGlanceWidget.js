@@ -12,23 +12,31 @@ import { PropTypes } from 'prop-types';
  */
 
 // Sum transaction data and sum target budget across all categories
-function BudgetAtAGlance() {
+function BudgetAtAGlance({ testDate = '03-02-2022' }) {
   // UNCOMMENT WHEN READY TO COMMIT
-  // const date = new Date();
+  const date = (testDate);
+
+  // const date - new Date("");
+  /* eslint-disable no-console */
+  console.log(date);
 
   // UNCOMMENT WHEN READY TO COMMIT
-  // const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+  /* eslint-disable no-console */
+  console.log(firstDay);
 
   // This is used for testing purposes if no transactions for current month
   // Remove after testing
-  const firstDay = new Date('2022-06-01');
+  // const firstDay = new Date('2022-06-01');
 
   // Actual code to use once testing is completed
-  // const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  /* eslint-disable no-console */
+  console.log(lastDay);
 
   // This is used for testing purposes if no transactions for current month
   // Remove after testing
-  const lastDay = new Date('2022-06-31');
+  // const lastDay = new Date('2022-06-31');
 
   // Get all transactions that do not fall under "Income" category
   // Reduce these transactions to get total
@@ -218,6 +226,10 @@ function BudgetProgressBar({ amount, total, ratio }) {
     <ProgressBar variant={barColor} now={Math.abs(amount)} max={total} />
   );
 }
+
+BudgetAtAGlance.propTypes = {
+  testDate: PropTypes.instanceOf(Date).isRequired,
+};
 
 SpentTracker.propTypes = {
   /**
