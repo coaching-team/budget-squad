@@ -29,13 +29,15 @@ import ProgressBar from 'react-bootstrap/ProgressBar';
 function CategoryRow({ category }) {
   const startDate = new Date('06-01-2021');
   const endDate = new Date('06-30-2021');
-  // check out memoization
+
   const amountSpent = useSelector((state) => state.transactions.entities.filter(
     (transaction) => transaction.categoryId === category.id
       && transaction.date >= startDate && transaction.date <= endDate,
   ).reduce((accumulator, currentValue) => accumulator + currentValue.amount, 0).toFixed(2)) * -1;
 
   const varianceToPercentage = (amountSpent / category.target) * 100;
+
+  // const target = props => ...category.target;
 
   let barColor = '';
   let message = (
@@ -84,19 +86,24 @@ function CategoryRow({ category }) {
   }
 
   return (
-    <div className="container mb-2 px-2 py-2 border border-info rounded">
+    <div className="col mb-2 px-2 py-2 border border-info rounded">
       <div className="row px-2">
-        <div className="col col-3 px-2 fw-bold">
+        <div className="col-3 px-2 fw-bold">
           {category.name}
         </div>
-        <div className="col col-7 px-2 pt-1 text-end text-muted fs-6">
+        <div className="col-7 px-2 pt-1 text-end text-muted fs-6">
           {message}
         </div>
-        <div className="col col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end" path="budget/:categoryId" category={category}>Details</Button></div>
+        <div className="col-2 px-2"><Button variant="outline-secondary" size="sm" className="float-end" path="budget/:categoryId" category={category}>Details</Button></div>
       </div>
       <div className="row px-1 py-2">
         <div className="col">
-          {varianceToPercentage > 100 ? (
+          <ProgressBar
+            {varianceToPercentage > 100 ? 'striped' : ''}
+            now={varianceToPercentage}
+            variant={barColor}
+          />
+          {/* {varianceToPercentage > 100 ? (
             <ProgressBar
               striped
               now={varianceToPercentage}
@@ -108,7 +115,7 @@ function CategoryRow({ category }) {
                 now={varianceToPercentage}
                 variant={barColor}
               />
-            )}
+            )} */}
         </div>
       </div>
     </div>
