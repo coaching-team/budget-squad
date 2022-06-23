@@ -49,34 +49,33 @@ describe('BudgetAtAGlanceWidget', () => {
     const testState = TestData.getState(transactions);
     const testDate = new Date('6-1-22');
     render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
-    // Assert spent message shows correct spending
-    screen.logTestingPlaygroundURL();
+
+    // Assert spent message shows $0 spent and an extra $1000 to spend
     screen.getByText(/\$0 spent out of \( \$2300\+ \$1000\)/i);
     // Assert on track message is displayed
     screen.getByText(/on track/i);
     // Assert progress bar is empty
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '0');
-    expect(progressBar).toHaveAttribute('aria-valuemax', '2300');
+    expect(progressBar).toHaveAttribute('aria-valuemax', '3300');
   });
 
   it('displays correctly with positive and negative transactions', () => {
-    // Arrange with 5 categories, at the end of the month
-    // and 5 transactions that should be ignored: 1 positive Income, 1 negative Income,
-    // 1 day before the month, 1 day after the month, 1 same month previous year
+    // Arrange with 2 transactions (1 positive, 1 negative that together add up to negative)
+    // 5 categories, 66% through the month
     const categoryIds = ['2457cec9-d841-49d7-9fba-8c6e852cbc22', '59726654-f530-4d5d-976c-006173cdd86a'];
     const transactions = TestData.getTransactions([-2000, 160], new Date('6-15-2022'), categoryIds);
     const testState = TestData.getState(transactions);
     const testDate = new Date('6-20-22');
     render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
 
-    // Assert spent message shows correct spending
+    // Assert spent message shows $1840 spent
     screen.getByText(/\$1840 spent out of \$2300/i);
-    // Assert under budget message is displayed
+    // Assert over budget message is displayed
     screen.getByText(/over budget/i);
-    // Assert progress bar is empty
+    // Assert progress bar is 80% full
     const progressBar = screen.getByRole('progressbar');
-    expect(progressBar).toHaveAttribute('aria-valuenow', '0');
+    expect(progressBar).toHaveAttribute('aria-valuenow', '1840');
     expect(progressBar).toHaveAttribute('aria-valuemax', '2300');
   });
 
@@ -94,7 +93,7 @@ describe('BudgetAtAGlanceWidget', () => {
     const testDate = new Date('6-30-22');
     render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
 
-    // Assert spent message shows correct spending
+    // Assert spent message shows no spending
     screen.getByText(/\$0 spent out of \$2300/i);
     // Assert under budget message is displayed
     screen.getByText(/under budget/i);
