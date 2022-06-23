@@ -1,7 +1,9 @@
 import React from 'react';
 import CategoryDetailsPage from './CategoryDetailsPage';
+import NewCategoryPage from './NewCategoryPage';
 
 export { CategoryDetailsPage };
+export { NewCategoryPage };
 
 /**
  * Shows the categories and allows the user to create and edit categories
