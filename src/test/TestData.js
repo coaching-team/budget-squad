@@ -3,36 +3,37 @@ import { v4 as uuid } from 'uuid';
 /**
  * Creates a new transaction object with the specified data
  *
- * @param {number} amount - the amount of the transaction (can be null or not provided)
- * @param {Object} date - the date of the transaction (can be null or not provided)
- * @param {string} categoryId - the categoryId of the transaction (can be null or not provided)
+ * @param {?number} amount - the amount of the transaction (can be null or not provided)
+ * @param {?Object} date - the date of the transaction (can be null or not provided)
+ * @param {?string} categoryId - the categoryId of the transaction (can be null or not provided)
  * @returns a new transaction object
  */
 export const getTransaction = (amount, date, categoryId) => ({
   id: uuid(),
   date: date || new Date(),
   payee: 'Ullrich Group',
-  categoryId: categoryId || 1,
+  categoryId: categoryId || '2457cec9-d841-49d7-9fba-8c6e852cbc22',
   notes: '',
   amount: amount || 0,
 });
 
 /**
  * Gets an array of transactions for testing
- * If no parameters are given, then it returns 5 test transactions
- * All have either categoryId 0 or categoryId 4
+ * Can specify amounts, dates and categories for the generated transactions
+ * If no parameters are given, then it returns 5 default transactions
+ * All default transactions have a category of Income or Shopping
  *
  * @param {number[]} amounts - an array of the amounts to use
- * @param {Object[]} dates - an array of dates or one date (optional)
- * @param {string[]} categoryIds - an array of category ids or one category id (optional)
+ * @param {?Object[] | Object} dates - an array of dates or one date (optional)
+ * @param {?string[] | string} categoryIds - an array of category ids or one category id (optional)
  * @returns an array of test transactions
  */
-export const getTransactions = (amounts, dates, categories) => {
+export const getTransactions = (amounts, dates, categoryIds) => {
   // Return a custom list of transactions
   if (Array.isArray(amounts)) {
     return amounts.map((amount, index) => {
       const date = (Array.isArray(dates)) ? dates[index] : dates;
-      const category = (Array.isArray(categories)) ? categories[index] : categories;
+      const category = (Array.isArray(categoryIds)) ? categoryIds[index] : categoryIds;
       return getTransaction(amount, date, category);
     });
   }
@@ -82,7 +83,7 @@ export const getTransactions = (amounts, dates, categories) => {
  * Creates a new category with the specified target
  * Default target is 0
  *
- * @param {number} target - the target of the category (can be null or not provided)
+ * @param {?number} target - the target of the category (can be null or not provided)
  * @returns a new category object
  */
 export const getCategory = (target) => ({
@@ -93,7 +94,7 @@ export const getCategory = (target) => ({
 
 /**
  * Gets five test categories
- * Income has an index of 0
+ * Income has an index of '6321da2a-98ef-457d-8357-797a9041fe10'
  *
  * @returns 5 test categories
  */
@@ -130,8 +131,8 @@ export const getCategories = () => [
  * If no transactions are provided (null or no argument), defaults to 5 test transactions
  * If no categories are provided (null or no argument), defaults to 5 test categories
  *
- * @param {*} transactions - the transactions to use (can be null or not provided)
- * @param {*} categories - the categories to use (can be null or not provided)
+ * @param {?Object[]} transactions - the transactions to use (can be null or not provided)
+ * @param {?Object[]} categories - the categories to use (can be null or not provided)
  * @returns a new state object for preloading in a test Redux store
  */
 export const getState = (
