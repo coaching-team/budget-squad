@@ -8,7 +8,7 @@ const testTransaction = {
   id: '3b2e29b6-d911-4c8b-8e4e-5808f7559418',
   date: new Date('2021-03-24'),
   payee: 'Tromp, Howell and Grant',
-  categoryId: 4,
+  categoryId: '91c33650-6df8-4845-b3e3-2450bed8541c',
   notes: 'nulla neque libero convallis',
   amount: -297.8,
 };
