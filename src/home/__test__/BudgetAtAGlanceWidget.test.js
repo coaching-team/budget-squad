@@ -4,7 +4,7 @@ import {
   render, screen, TestData,
 } from '../../test';
 
-describe('BudgetAtAGlanceWidget', () => {
+describe.skip('BudgetAtAGlanceWidget', () => {
   it('displays correctly with no transactions', () => {
     // Arrange with no transactions and one $500 category, at the end of the month
     const transactions = [];
