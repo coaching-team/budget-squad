@@ -99,7 +99,7 @@ function CategoryRow({ category }) {
       <div className="row px-1 py-2">
         <div className="col">
           <ProgressBar
-            {varianceToPercentage > 100 ? 'striped' : ''}
+            striped={varianceToPercentage > 100}
             now={varianceToPercentage}
             variant={barColor}
           />
