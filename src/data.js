@@ -31,6 +31,8 @@ export const CATEGORIES = [
   },
 ];
 
+export const INCOME_ID = '6321da2a-98ef-457d-8357-797a9041fe10';
+
 export const TRANSACTIONS = [{
   id: 'abf3abac-3d22-488d-b208-dc9b1e44008e',
   date: new Date('2021-09-27'),
@@ -734,26 +736,26 @@ export const TRANSACTIONS = [{
 }, {/* REMOVE THIS */},
 {
   id: '5dfeb0ee-ee83-4e54-a763-0ba79c7ea045',
-  date: new Date('2022-06-08 10:44:22'),
+  date: new Date('2022-03-08 10:44:22'),
   payee: 'Conn Group',
   categoryId: 4,
   notes: 'test1',
-  amount: -1000,
+  amount: -10,
 },
 {
   id: '5dfeb0ee-ee83-4e54-a763-0ba79c7ea046',
-  date: new Date('2022-06-20 10:44:22'),
+  date: new Date('2022-03-20 10:44:22'),
   payee: 'Conn Group',
   categoryId: 4,
   notes: 'test2',
-  amount: -50,
+  amount: -500,
 },
 {
   id: '5dfeb0ee-ee83-4e54-a763-0ba79c7ea047',
-  date: new Date('2022-06-15 10:44:22'),
+  date: new Date('2022-03-15 10:44:22'),
   payee: 'Conn Group',
   categoryId: 3,
   notes: 'test3',
-  amount: 1500,
+  amount: -50,
 },
 ];

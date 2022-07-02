@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { ProgressBar } from 'react-bootstrap';
 import { PropTypes } from 'prop-types';
+import { INCOME_ID } from '../data';
 
 /**
  * Shows how much spent compared to budget across all categories (except income) for current month.
@@ -18,12 +19,12 @@ function BudgetAtAGlance({ testDate = new Date() }) {
 
   // const date - new Date("");
   /* eslint-disable no-console */
-  console.log(date);
+  console.log(`Test date is ${date}`);
 
   // UNCOMMENT WHEN READY TO COMMIT
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
   /* eslint-disable no-console */
-  console.log(firstDay);
+  console.log(`First day is ${firstDay}`);
 
   // This is used for testing purposes if no transactions for current month
   // Remove after testing
@@ -32,7 +33,7 @@ function BudgetAtAGlance({ testDate = new Date() }) {
   // Actual code to use once testing is completed
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   /* eslint-disable no-console */
-  console.log(lastDay);
+  console.log(`Last Day is ${lastDay}`);
 
   // This is used for testing purposes if no transactions for current month
   // Remove after testing
@@ -59,7 +60,7 @@ function BudgetAtAGlance({ testDate = new Date() }) {
       );
 
       const filteredTransactions = currTransactions.filter(
-        (transaction) => transaction.categoryId !== 0,
+        (transaction) => transaction.categoryId !== INCOME_ID,
       );
 
       const totalTransactions = filteredTransactions.reduce(
@@ -68,39 +69,80 @@ function BudgetAtAGlance({ testDate = new Date() }) {
       ).toFixed(2);
       // Remove after testing -- do not delete return line
       /* eslint-disable no-console */
-      console.log(totalTransactions);
-      return totalTransactions;
+      console.log(`Total transactions are ${totalTransactions}`);
+      return parseFloat(totalTransactions);
     },
   );
 
   // Remove after testing
   /* eslint-disable no-console */
-  console.log(amountSpent);
+  console.log(`Amount spent is ${amountSpent}`);
 
   // Gets categories data, excludes income category, sums target values
   const totalBudget = useSelector(
     (state) => {
+      // // Get categories array
+      // const allCategories = state.categories.entities.map(
+      //   (t) => t.target,
+      // );
+      // // Get target property values and put into a new array
+      // const targetCategories = allCategories.filter(
+      //   (c) => c.id !== INCOME_ID,
+      // );
+      // /* eslint-disable no-console */
+      // console.log(targetCategories);
+      // return targetCategories;
       const allCategories = state.categories.entities;
-      const budgetCategories = allCategories.filter(
-        (category) => category.id !== 0,
+      const currCategories = allCategories.filter(
+        (category) => category.id !== INCOME_ID,
       );
-
-      const totalCategories = budgetCategories.reduce(
+      const totalCategories = currCategories.reduce(
         (total, category) => total + category.target,
         0,
       );
-      // Remove after testing
       /* eslint-disable no-console */
-      console.log(totalCategories);
-      return totalCategories;
+      console.log(`Total categories are ${totalCategories}`);
+      /* eslint-disable no-console */
+      console.log(typeof totalCategories);
+      return parseFloat(totalCategories);
     },
   );
 
-  // Gets percent different to calculate status
-  const spentToBudget = ((Math.abs(amountSpent) - totalBudget) / totalBudget);
+  // Gets budget percentage to calculate status
+  const spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
   // Remove after testing
   /* eslint-disable no-console */
   console.log(spentToBudget);
+
+  // Gets month percentage to calculate status
+  const currDay = date.getDate();
+  const endDay = lastDay.getDate();
+  const monthPercentage = parseFloat(currDay / endDay);
+  // Remove after testing
+  /* eslint-disable no-console */
+  console.log(monthPercentage);
+
+  // TRIAL #1 Moved from Budget Status
+  let status = '';
+  if (amountSpent >= 0) {
+    status = 'Under';
+  } else {
+    if (spentToBudget >= (monthPercentage * 1.10)) {
+      status = 'Over';
+    } else if (spentToBudget <= (monthPercentage * 0.90)) {
+      status = 'Under';
+    } else {
+      status = 'On Track';
+    }
+  }
+
+  const checkTest = (spentToBudget >= (monthPercentage * 1.10));
+  /* eslint-disable no-console */
+  console.log(checkTest);
+  /* eslint-disable no-console */
+  console.log(`Ratio is ${spentToBudget}`);
+  /* eslint-disable no-console */
+  console.log(`Month percent is ${monthPercentage * 1.10}`);
 
   return (
     <div className="row">
@@ -110,8 +152,20 @@ function BudgetAtAGlance({ testDate = new Date() }) {
           <p className="m-3">
             <SpentTracker amount={amountSpent} total={totalBudget} />
             <div className="my-3">
-              <BudgetStatus amount={amountSpent} ratio={spentToBudget} />
-              <BudgetProgressBar amount={amountSpent} total={totalBudget} ratio={spentToBudget} />
+              <BudgetStatus
+                // amount={amountSpent}
+                // ratio={spentToBudget}
+                // total={totalBudget}
+                // monthPercent={monthPercentage}
+                status={status}
+              />
+              <BudgetProgressBar
+                amount={amountSpent}
+                total={totalBudget}
+                ratio={spentToBudget}
+                monthPercent={monthPercentage}
+                status={status}
+              />
             </div>
           </p>
         </div>
@@ -154,12 +208,8 @@ function SpentTracker({ amount, total }) {
     spentDisplay = (
       <>
         $0 spent out of
-        &nbsp;
         $
         {total}
-        +
-        $
-        {amount}
       </>
     );
   } else {
@@ -184,20 +234,66 @@ function SpentTracker({ amount, total }) {
  */
 
 // Added amount < 0 to condition to ensure BudgetStatus tracking negative transactions
-function BudgetStatus({ amount, ratio }) {
-  const fontStyling = (amount < 0 && ratio > 0.10) ? 'text-danger' : 'text-success';
+function BudgetStatus({ status }) {
+  // const fontStyling = (amount < 0 && ratio >= 0.10) ? 'text-danger' : 'text-success';
 
-  const endText = (ratio >= -0.10 && ratio <= 0.10) ? 'to stay within budget' : 'your budget';
+  // const endText = ((ratio >= -0.10 || ratio === 0) && ratio <= 0.10) ?
+  // 'to stay within budget' : 'your budget';
 
-  let status = '';
+  // let status = '';
 
-  if (amount < 0 && ratio > 0.10) {
-    status = 'Over';
-  } else if (amount < 0 && ratio < -0.10) {
-    status = 'Under';
-  } else {
-    status = 'On Track';
-  }
+  // if (amount < 0 && ratio >= 0.10) {
+  //   status = 'Over';
+  // } else if (amount < 0 && ratio <= -0.10) {
+  //   status = 'Under';
+  // } else {
+  //   status = 'On Track';
+  // }
+
+  // if (amount < 0 && ratio <= -0.10) {
+  //   status = 'Over';
+  // } else if (amount < 0 && ratio >= -0.10) {
+  //   status = 'Over';
+  // } else {
+  //   status = 'On Track';
+  // }
+
+  // if (amount < 0 && ratio >= (monthPercent * 1.10)) {
+  //   status = 'Over';
+  // } else if (amount < 0 && ratio <= monthPercent * 0.90) {
+  //   status = 'Under';
+  // } else {
+  //   status = 'On Track';
+  // }
+
+  // is amount >=0 if so nothing has been spent or have extra budget
+  // TRIAL #1 MOVE THIS TO BUDGET AT A GLANCE COMPONENT
+  // if (amount >= 0) {
+  //   status = 'On Track';
+  // }
+  // if ((Math.abs(amount) > total) && ratio >= (monthPercent * 1.10)) {
+  //   status = 'Over';
+  // } else if ((Math.abs(amount) < total) && ratio <= (monthPercent * 0.90)) {
+  //   status = 'Under';
+  // } else {
+  //   status = 'On Track';
+  // }
+
+  const fontStyling = (status === 'On Track' || status === 'Under') ? 'text-success' : 'text-danger';
+
+  // For testing purposes only
+  // TRIAL # 1 Moved to Budget At A Glance Component
+  // const checkTest = (ratio >= (monthPercent * 1.10));
+  // /* eslint-disable no-console */
+  // console.log(checkTest);
+  // /* eslint-disable no-console */
+  // console.log(`Ratio is ${ratio}`);
+  // /* eslint-disable no-console */
+  // console.log(`Month percent is ${monthPercent * 1.10}`);
+
+  const endText = (status === 'On Track') ? 'to stay within budget' : 'budget';
+  /* eslint-disable no-console */
+  console.log(`${fontStyling} ${endText}`);
 
   return (
     <>
@@ -218,11 +314,30 @@ function BudgetStatus({ amount, ratio }) {
  * @component
  */
 
-function BudgetProgressBar({ amount, total, ratio }) {
-  const barColor = (amount < 0 && ratio > 0.10) ? 'danger' : 'success';
+function BudgetProgressBar({
+  amount, status, total,
+}) {
+  let barLength = '';
+  let barMax = '';
+  // TRIAL # 1
+  // const barLength = (amount >= 0) ? 0 : Math.abs(amount);
+  // const barColor = (amount >= 0 || (Math.abs(amount) < total && ratio <= monthPercent * 0.90))
+  // ? 'success' : 'danger';
+  const barColor = (status === 'On Track' || status === 'Under') ? 'success' : 'danger';
+
+  if (amount >= 0) {
+    barLength = 0;
+    barMax = amount + total;
+  } else {
+    barLength = Math.abs(amount);
+    barMax = total;
+  }
+
+  /* eslint-disable no-console */
+  console.log(`Progress bar amount is ${barLength}`);
 
   return (
-    <ProgressBar variant={barColor} now={Math.abs(amount)} max={total} />
+    <ProgressBar variant={barColor} now={barLength} max={barMax} />
   );
 }
 
@@ -246,13 +361,25 @@ SpentTracker.propTypes = {
 
 BudgetStatus.propTypes = {
   /**
+   * Displays message text and styling based on Over, Under, or On Track
+   */
+  status: PropTypes.string.isRequired,
+  /**
    * Sum of transactions (except income)
    */
-  amount: PropTypes.number.isRequired,
+  // amount: PropTypes.number.isRequired,
   /**
    * Difference of amount spent and total budget over togal budget
    */
-  ratio: PropTypes.number.isRequired,
+  // total: PropTypes.number.isRequired,
+  /**
+   * Difference of amount spent and total budget over togal budget
+   */
+  // ratio: PropTypes.number.isRequired,
+  /**
+   * Ratio of current day over total number of days in current month
+   */
+  // monthPercent: PropTypes.number.isRequired,
 };
 
 BudgetProgressBar.propTypes = {
@@ -261,13 +388,21 @@ BudgetProgressBar.propTypes = {
    */
   amount: PropTypes.number.isRequired,
   /**
+   * Displays message text and styling based on Over, Under, or On Track
+   */
+  status: PropTypes.string.isRequired,
+  /**
    * Sum of all category targets (except income)
    */
   total: PropTypes.number.isRequired,
   /**
-   * Difference of amount spent and total budget over togal budget
+   * Difference of amount spent and total budget over total budget
    */
-  ratio: PropTypes.number.isRequired,
+  // ratio: PropTypes.number.isRequired,
+  /**
+   * Ratio of current day over total number of days in current month
+   */
+  // monthPercent: PropTypes.number.isRequired,
 };
 
 export default BudgetAtAGlance;
