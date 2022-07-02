@@ -54,7 +54,7 @@ describe('BudgetAtAGlanceWidget', () => {
     screen.getByText(/\$0 spent out of \( \$2300\+ \$1000\)/i);
     // Assert on track message is displayed
     // changed to under from on track
-    screen.getByText(/under/i);
+    screen.getByText(/on track/i);
     // Assert progress bar is empty
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '0');

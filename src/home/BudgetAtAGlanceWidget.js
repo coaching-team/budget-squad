@@ -124,8 +124,10 @@ function BudgetAtAGlance({ testDate = new Date() }) {
 
   // TRIAL #1 Moved from Budget Status
   let status = '';
-  if (amountSpent >= 0) {
+  if (amountSpent >= 0 && spentToBudget < monthPercentage * 0.90) {
     status = 'Under';
+  } else if (amountSpent >= 0 && spentToBudget > monthPercentage * 1.10) {
+    status = 'On Track';
   } else {
     if (spentToBudget >= (monthPercentage * 1.10)) {
       status = 'Over';
