@@ -733,5 +733,28 @@ export const TRANSACTIONS = [{
   categoryId: '91c33650-6df8-4845-b3e3-2450bed8541c',
   notes: 'metus vitae ipsum',
   amount: -23.47,
+}, {
+  /* REMOVE THIS */
+}, {
+  id: 'c31dcd97-3582-487b-a5d9-0ac7d8331c0b',
+  date: new Date('2022-07-31'),
+  payee: 'Ankunding Group',
+  categoryId: '2457cec9-d841-49d7-9fba-8c6e852cbc22',
+  notes: 'cras',
+  amount: -954.89,
+}, {
+  id: '83694d66-e735-45b0-8219-a8f6811c5e95',
+  date: new Date('2022-07-17'),
+  payee: 'Koss Inc',
+  categoryId: '91c33650-6df8-4845-b3e3-2450bed8541c',
+  notes: 'morbi odio odio',
+  amount: -221.64,
+}, {
+  id: '5dfeb0ee-ee83-4e54-a763-0ba79c7ea041',
+  date: new Date('2022-07-08'),
+  payee: 'Conn Group',
+  categoryId: '91c33650-6df8-4845-b3e3-2450bed8541c',
+  notes: 'metus vitae ipsum',
+  amount: -23.47,
 },
 ];
