@@ -15,11 +15,15 @@ import { formatMoney } from '../utilities/index';
  */
 
 function BudgetAtAGlance() {
-  const date = new Date();
+  const date = new Date('6-30-22');
 
   const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
 
   const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+  // REMOVE
+  /* eslint-disable no-console */
+  console.log(`First day of the month is ${firstDay} and last day is ${lastDay}`);
 
   // Get all transactions that do not fall under income category and reduce
   // const amountSpent = useSelector(
@@ -40,12 +44,6 @@ function BudgetAtAGlance() {
   //     return allTransactions;
   //   },
   // );
-  const amountSpent = useSelector(
-    (state) => state.transactions.entities
-      .filter((transaction) => transaction.date >= firstDay && transaction.date <= lastDay)
-      .filter((transaction) => transaction.categoryId !== INCOME_ID)
-      .reduce((total, transaction) => total + transaction.amount, 0),
-  );
 
   // const amountSpent = useSelector(
   //   (state) => {
@@ -72,6 +70,14 @@ function BudgetAtAGlance() {
   //     return (totalTransactions);
   //   },
   // );
+
+  const amountSpent = useSelector(
+    (state) => state.transactions.entities
+      .filter((transaction) => transaction.date >= firstDay && transaction.date <= lastDay)
+      .filter((transaction) => transaction.categoryId !== INCOME_ID)
+      .reduce((total, transaction) => total + transaction.amount, 0),
+  );
+
   // REMOVE
   /* eslint-disable no-console */
   console.log(`Amount spent is ${amountSpent}`);
@@ -102,13 +108,13 @@ function BudgetAtAGlance() {
   console.log(`Total budget is ${totalBudget}`);
 
   // Gets budget percentage to calculate status
-  const spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
-  // let spentToBudget = '';
-  // if (amountSpent >= 0) {
-  //   spentToBudget = 0;
-  // } else {
-  //   spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
-  // }
+  // const spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
+  let spentToBudget = '';
+  if (amountSpent >= 0) {
+    spentToBudget = 0;
+  } else {
+    spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
+  }
 
   // REMOVE
   /* eslint-disable no-console */
@@ -121,26 +127,22 @@ function BudgetAtAGlance() {
 
   // REMOVE
   /* eslint-disable no-console */
-  console.log(`First day of the month is ${firstDay} and last day is ${endDay}`);
-
-  // REMOVE
-  /* eslint-disable no-console */
   console.log(`Month Percent is ${currDay} / ${endDay} is ${monthPercentage}`);
 
   let status = '';
-  if (amountSpent >= 0 && spentToBudget <= (monthPercentage - 0.10)) {
+  // if (amountSpent >= 0 && spentToBudget <= (monthPercentage - 0.10)) {
+  //   status = 'Under';
+  // } else if (amountSpent >= 0 && spentToBudget > (monthPercentage - 0.10)) {
+  //   status = 'On Track';
+  // } else {
+  if (spentToBudget >= (monthPercentage + 0.10)) {
+    status = 'Over';
+  } else if (spentToBudget <= (monthPercentage - 0.10)) {
     status = 'Under';
-  } else if (amountSpent >= 0 && spentToBudget > (monthPercentage - 0.10)) {
-    status = 'On Track';
   } else {
-    if (spentToBudget >= (monthPercentage + 0.10)) {
-      status = 'Over';
-    } else if (spentToBudget <= (monthPercentage - 0.10)) {
-      status = 'Under';
-    } else {
-      status = 'On Track';
-    }
+    status = 'On Track';
   }
+  // }
   // REMOVE
   /* eslint-disable no-console */
   console.log(`Status is ${status}`);
@@ -182,42 +184,85 @@ function BudgetAtAGlance() {
  * @component
  */
 
+// ORIGINAL
+// function SpentTracker({ amount, total }) {
+//   let spentDisplay = '';
+//   if (amount > 0) {
+//     spentDisplay = (
+//       <>
+//         $0 spent out of
+//         &nbsp;
+//         <strike>
+//           {formatMoney(total)}
+//         </strike>
+//         &nbsp;
+//         (
+//         {formatMoney(total)}
+//         +
+//         {formatMoney(amount)}
+//         )
+//       </>
+//     );
+//   } else if (amount === 0) {
+//     spentDisplay = (
+//       <>
+//         $0 spent out of
+//         &nbsp;
+//         {formatMoney(total)}
+//       </>
+//     );
+//   } else {
+//     spentDisplay = (
+//       <>
+//         {formatMoney(Math.abs(amount))}
+//         &nbsp;spent out of&nbsp;
+//         {formatMoney(total)}
+//       </>
+//     );
+//   }
+//   // REMOVE
+//   /* eslint-disable no-console */
+//   console.log(`Status is ${spentDisplay}`);
+//   return spentDisplay;
+// }
+
+// REVISED
 function SpentTracker({ amount, total }) {
-  let spentDisplay = '';
-  if (amount > 0) {
-    spentDisplay = (
+  const spentText = (amount >= 0) ? '$0' : formatMoney(Math.abs(amount));
+  // let budgetText = '';
+  // if (amount > 0) {
+  //   budgetText = (
+  //     <>
+  //       <strike>{formatMoney(total)}</strike>
+  //       &nbsp;
+  //       ({formatMoney(total)} + {formatMoney(amount)})
+  //     </>
+  //   );
+  // } else {
+  //   budgetText = (
+  //     <>
+  //       {formatMoney(total)}
+  //     </>
+  //   );
+  // }
+  const budgetText = (amount > 0)
+    ? (
       <>
-        $0 spent out of
-        &nbsp;
         <strike>
           {formatMoney(total)}
-        </strike>
-        &nbsp;
+        </strike> &nbsp;
         (
-        {formatMoney(total)}
-        +
-        {formatMoney(amount)}
+        {formatMoney(total)} + {formatMoney(amount)}
         )
       </>
-    );
-  } else if (amount === 0) {
-    spentDisplay = (
-      <>
-        $0 spent out of
-        &nbsp;
-        {formatMoney(total)}
-      </>
-    );
-  } else {
-    spentDisplay = (
-      <>
-        {formatMoney(Math.abs(amount))}
-        &nbsp;spent out of&nbsp;
-        {formatMoney(total)}
-      </>
-    );
-  }
-  return spentDisplay;
+    )
+    : <>{formatMoney(total)}</>;
+
+  return (
+    <>
+      {spentText} spent out of {budgetText}
+    </>
+  );
 }
 
 /**
@@ -273,6 +318,13 @@ function BudgetProgressBar({
     <ProgressBar variant={barColor} now={barLength} max={barMax} />
   );
 }
+
+// BudgetAtAGlance.propTypes = {
+//   /**
+//    * Sum of transactions (except income)
+//    */
+//   testDate: PropTypes.instanceOf(Date).isRequired,
+// };
 
 SpentTracker.propTypes = {
   /**

@@ -11,7 +11,8 @@
       "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
       "linebreak-style": "off",
       "jsx-a11y/label-has-associated-control": [ 2, {"required": {"some": [ "nesting", "id" ]
-  }
-}]
+      }
+        }],
+      "react/jsx-one-expression-per-line": "off"
     }
 }
