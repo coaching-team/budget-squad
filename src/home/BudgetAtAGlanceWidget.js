@@ -37,12 +37,7 @@ function BudgetAtAGlance() {
   );
 
   // Gets budget percentage to calculate status
-  let spentToBudget = '';
-  if (amountSpent >= 0) {
-    spentToBudget = 0;
-  } else {
-    spentToBudget = parseFloat(Math.abs(amountSpent) / totalBudget);
-  }
+  const spentToBudget = (amountSpent >= 0) ? 0 : Math.abs(amountSpent) / totalBudget;
 
   // Gets month percentage to calculate status
   const currDay = date.getDate();
@@ -60,27 +55,23 @@ function BudgetAtAGlance() {
   }
 
   return (
-    <div className="row">
-      <div className="col-md-6">
-        <div className="card border-secondary mb-3">
-          <h4 className="card-header">Budget at a Glance</h4>
-          <div className="card-body">
-            <SpentTracker amount={amountSpent} total={totalBudget} />
-            <div className="my-3">
-              <BudgetProgressBar
-                amount={amountSpent}
-                total={totalBudget}
-                ratio={spentToBudget}
-                monthPercent={monthPercentage}
-                status={status}
-              />
-            </div>
-            <div className="my-3">
-              <BudgetStatus
-                status={status}
-              />
-            </div>
-          </div>
+    <div className="card border-secondary mb-3">
+      <h4 className="card-header">Budget at a Glance</h4>
+      <div className="card-body">
+        <SpentTracker amount={amountSpent} total={totalBudget} />
+        <div className="my-3">
+          <BudgetProgressBar
+            amount={amountSpent}
+            total={totalBudget}
+            ratio={spentToBudget}
+            monthPercent={monthPercentage}
+            status={status}
+          />
+        </div>
+        <div className="my-3">
+          <BudgetStatus
+            status={status}
+          />
         </div>
       </div>
     </div>
