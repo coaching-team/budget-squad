@@ -31,6 +31,8 @@ export const CATEGORIES = [
   },
 ];
 
+export const INCOME_ID = '6321da2a-98ef-457d-8357-797a9041fe10';
+
 export const TRANSACTIONS = [{
   id: 'abf3abac-3d22-488d-b208-dc9b1e44008e',
   date: new Date('2021-09-27'),

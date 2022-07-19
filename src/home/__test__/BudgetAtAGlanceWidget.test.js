@@ -22,13 +22,13 @@ describe('BudgetAtAGlanceWidget', () => {
     render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows no spending
-    screen.getByText(/\$0 spent out of \$2300/i);
+    screen.getByText(/\$0 spent out of \$500/i);
     // Assert under budget message is displayed
-    screen.getByText(/under budget/i);
+    screen.getByText(/under/i);
     // Assert progress bar is empty
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '0');
-    expect(progressBar).toHaveAttribute('aria-valuemax', '2300');
+    expect(progressBar).toHaveAttribute('aria-valuemax', '500');
   });
 
   it('displays correctly with only negative transactions', () => {
@@ -41,9 +41,9 @@ describe('BudgetAtAGlanceWidget', () => {
     render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $1150 spending
-    screen.getByText(/\$1150 spent out of \$2300/i);
+    screen.getByText(/\$1,150.00 spent out of \$2,300.00/i);
     // Assert over budget message is displayed
-    screen.getByText(/over budget/i);
+    screen.getByText(/over/i);
     // Assert progress bar is halfway
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '1150');
@@ -59,8 +59,9 @@ describe('BudgetAtAGlanceWidget', () => {
     render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $0 spent and an extra $1000 to spend
-    screen.getByText(/\$0 spent out of \( \$2300\+ \$1000\)/i);
+    screen.getByText(/\$0 spent out of \( \$2,300.00\+ \$1,000.00\)/i);
     // Assert on track message is displayed
+    // changed to under from on track
     screen.getByText(/on track/i);
     // Assert progress bar is empty
     const progressBar = screen.getByRole('progressbar');
@@ -78,9 +79,9 @@ describe('BudgetAtAGlanceWidget', () => {
     render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $1840 spent
-    screen.getByText(/\$1840 spent out of \$2300/i);
+    screen.getByText(/\$1,840.00 spent out of \$2,300.00/i);
     // Assert over budget message is displayed
-    screen.getByText(/over budget/i);
+    screen.getByText(/over/i);
     // Assert progress bar is 80% full
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '1840');
@@ -102,9 +103,9 @@ describe('BudgetAtAGlanceWidget', () => {
     render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows no spending
-    screen.getByText(/\$0 spent out of \$2300/i);
+    screen.getByText(/\$0 spent out of \$2,300/i);
     // Assert under budget message is displayed
-    screen.getByText(/under budget/i);
+    screen.getByText(/under/i);
     // Assert progress bar is empty
     const progressBar = screen.getByRole('progressbar');
     expect(progressBar).toHaveAttribute('aria-valuenow', '0');
