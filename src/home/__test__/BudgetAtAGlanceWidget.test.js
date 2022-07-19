@@ -5,13 +5,21 @@ import {
 } from '../../test';
 
 describe('BudgetAtAGlanceWidget', () => {
-  it.skip('displays correctly with no transactions', () => {
+  beforeAll(() => {
+    jest.useFakeTimers();
+  });
+
+  afterAll(() => {
+    jest.useRealTimers();
+  });
+
+  it('displays correctly with no transactions', () => {
     // Arrange with no transactions and one $500 category, at the end of the month
     const transactions = [];
     const categories = [TestData.getCategory(500)];
     const testState = TestData.getState(transactions, categories);
-    const testDate = new Date('6-30-22');
-    render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
+    jest.setSystemTime(new Date('6-30-22').getTime());
+    render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows no spending
     screen.getByText(/\$0 spent out of \$500/i);
@@ -23,14 +31,14 @@ describe('BudgetAtAGlanceWidget', () => {
     expect(progressBar).toHaveAttribute('aria-valuemax', '500');
   });
 
-  it.skip('displays correctly with only negative transactions', () => {
+  it('displays correctly with only negative transactions', () => {
     // Arrange with 3 negative transactions, 5 categories, at the beginning of the month
     const categoryIds = ['2457cec9-d841-49d7-9fba-8c6e852cbc22',
       '59726654-f530-4d5d-976c-006173cdd86a', '59726654-f530-4d5d-976c-006173cdd86a'];
     const transactions = TestData.getTransactions([-1005, -68, -77], new Date('6-5-22'), categoryIds);
     const testState = TestData.getState(transactions);
-    const testDate = new Date('6-1-22');
-    render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
+    jest.setSystemTime(new Date('6-1-22').getTime());
+    render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $1150 spending
     screen.getByText(/\$1,150.00 spent out of \$2,300.00/i);
@@ -42,13 +50,13 @@ describe('BudgetAtAGlanceWidget', () => {
     expect(progressBar).toHaveAttribute('aria-valuemax', '2300');
   });
 
-  it.skip('displays correctly with only positive transactions', () => {
+  it('displays correctly with only positive transactions', () => {
     // Arrange with 2 positive transactions, 5 categories, at the beginning of the month
     const categoryIds = ['2457cec9-d841-49d7-9fba-8c6e852cbc22', '59726654-f530-4d5d-976c-006173cdd86a'];
     const transactions = TestData.getTransactions([500, 500], new Date('6-5-22'), categoryIds);
     const testState = TestData.getState(transactions);
-    const testDate = new Date('6-1-22');
-    render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
+    jest.setSystemTime(new Date('6-1-22').getTime());
+    render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $0 spent and an extra $1000 to spend
     screen.getByText(/\$0 spent out of \( \$2,300.00\+ \$1,000.00\)/i);
@@ -61,14 +69,14 @@ describe('BudgetAtAGlanceWidget', () => {
     expect(progressBar).toHaveAttribute('aria-valuemax', '3300');
   });
 
-  it.skip('displays correctly with positive and negative transactions', () => {
+  it('displays correctly with positive and negative transactions', () => {
     // Arrange with 2 transactions (1 positive, 1 negative that together add up to negative)
     // 5 categories, 66% through the month
     const categoryIds = ['2457cec9-d841-49d7-9fba-8c6e852cbc22', '59726654-f530-4d5d-976c-006173cdd86a'];
     const transactions = TestData.getTransactions([-2000, 160], new Date('6-15-2022'), categoryIds);
     const testState = TestData.getState(transactions);
-    const testDate = new Date('6-20-22');
-    render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
+    jest.setSystemTime(new Date('6-20-22').getTime());
+    render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows $1840 spent
     screen.getByText(/\$1,840.00 spent out of \$2,300.00/i);
@@ -91,8 +99,8 @@ describe('BudgetAtAGlanceWidget', () => {
         '2457cec9-d841-49d7-9fba-8c6e852cbc22', '59726654-f530-4d5d-976c-006173cdd86a'],
     );
     const testState = TestData.getState(transactions);
-    const testDate = new Date('6-30-22');
-    render(<BudgetAtAGlanceWidget testDate={testDate} />, { preloadedState: testState });
+    jest.setSystemTime(new Date('6-30-22').getTime());
+    render(<BudgetAtAGlanceWidget />, { preloadedState: testState });
 
     // Assert spent message shows no spending
     screen.getByText(/\$0 spent out of \$2,300/i);
