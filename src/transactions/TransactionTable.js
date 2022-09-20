@@ -30,26 +30,47 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
   const [direction, setdirection] = useState(-1);
   const [sortProperty, setSortProperty] = useState();
 
-  const onButtonClickPayee = () => {
-    setSortProperty('payee');
+  // // const onButtonClickProperty = ({
+  // //   payee, date, category, notes, amount,
+  // // }) => {
+
+  // const propertiesCategories = ['payee', 'date', 'category', 'notes', 'amount'];
+
+  // const onButtonClickProperty = () => {
+  //   setSortProperty(() => [...sortProperty, propertiesCategories()]);
+  //   setSortProperty(...sortProperty);
+  //   setdirection(-1 * direction);
+  // };
+
+  //   const onButtonClickProperty = ({
+  //   payee, date, category, notes, amount,
+  // }) => {
+  const onButtonClickProperty = (payee, date, category, notes, amount) => {
+    setSortProperty(payee, date, category, notes, amount);
     setdirection(-1 * direction);
   };
-  const onButtonClickDate = () => {
-    setSortProperty('date');
-    setdirection(-1 * direction);
-  };
-  const onButtonClickCategory = () => {
-    setSortProperty('category');
-    setdirection(-1 * direction);
-  };
-  const onButtonClickNotes = () => {
-    setSortProperty('notes');
-    setdirection(-1 * direction);
-  };
-  const onButtonClickAmount = () => {
-    setSortProperty('amount');
-    setdirection(-1 * direction);
-  };
+
+  // const onButtonClickPayee = () => {
+  //   setSortProperty('payee');
+  //   setdirection(-1 * direction);
+  // };
+
+  // const onButtonClickDate = () => {
+  //   setSortProperty('date');
+  //   setdirection(-1 * direction);
+  // };
+  // const onButtonClickCategory = () => {
+  //   setSortProperty('category');
+  //   setdirection(-1 * direction);
+  // };
+  // const onButtonClickNotes = () => {
+  //   setSortProperty('notes');
+  //   setdirection(-1 * direction);
+  // };
+  // const onButtonClickAmount = () => {
+  //   setSortProperty('amount');
+  //   setdirection(-1 * direction);
+  // };
 
   const transactionList = useSelector(
     (state) => state.transactions.entities.filter(
@@ -112,7 +133,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
             <button
               type="button"
               className="date"
-              onClick={onButtonClickDate}
+              onClick={() => onButtonClickProperty('date')}
             >
               Date
             </button>
@@ -121,7 +142,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
             <button
               type="button"
               className="payee"
-              onClick={onButtonClickPayee}
+              onClick={() => onButtonClickProperty('payee')}
             >
               Payee
             </button>
@@ -130,7 +151,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
             <button
               type="button"
               className="category"
-              onClick={onButtonClickCategory}
+              onClick={() => onButtonClickProperty('category')}
             >
               Category
             </button>
@@ -139,7 +160,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
             <button
               type="button"
               className="notes"
-              onClick={onButtonClickNotes}
+              onClick={() => onButtonClickProperty('notes')}
             >
               Notes
             </button>
@@ -148,7 +169,7 @@ function TransactionTable({ isCreating = false, onStopCreating, filters = {} }) 
             <button
               type="button"
               className="amount"
-              onClick={onButtonClickAmount}
+              onClick={() => onButtonClickProperty('amount')}
             >
               Amount
             </button>
